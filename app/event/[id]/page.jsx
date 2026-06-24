@@ -1,24 +1,9 @@
-import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
-
-async function getEvent(id) {
-  try {
-    const { data: event, error } = await supabase
-      .from('events')
-      .select('*')
-      .eq('id', id)
-      .single();
-
-    if (error && error.code !== 'PGRST116') throw error;
-    return event || null;
-  } catch (error) {
-    console.error('Fetch event detail error:', error);
-    return null;
-  }
-}
+import { getEventById } from '@/lib/data';
 
 export default async function EventDetailPage({ params }) {
-  const event = await getEvent(params.id);
+  const resolvedParams = await params;
+  const event = getEventById(resolvedParams.id);
 
   if (!event) {
     return (
@@ -29,14 +14,7 @@ export default async function EventDetailPage({ params }) {
     );
   }
 
-  let images = [];
-  try {
-    images = JSON.parse(event.image);
-    if (!Array.isArray(images)) images = [event.image];
-  } catch (e) {
-    images = event.image ? [event.image] : [];
-  }
-
+  const images = event.image || [];
   const coverImg = images.length > 0 ? images[0] : "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=1200";
 
   return (

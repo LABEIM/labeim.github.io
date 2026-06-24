@@ -12,16 +12,7 @@ export default function Pendaftaran() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    async function checkAuth() {
-      const res = await fetch('/api/auth/me');
-      const data = await res.json();
-      if (!data.logged_in) {
-        router.push('/login');
-      }
-    }
-    checkAuth();
-  }, [router]);
+
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.id]: e.target.value });
 

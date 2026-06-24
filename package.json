@@ -12,10 +12,12 @@
     "@supabase/supabase-js": "^2.108.2",
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.10.0",
+    "formdata-node": "^6.0.3",
     "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.22.5",
     "next": "16.2.9",
     "next-cloudinary": "^6.17.5",
+    "node-fetch": "^3.3.2",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },

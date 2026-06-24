@@ -1,24 +1,9 @@
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { events, news } from '@/lib/data';
 
-async function getLatestNews() {
-  try {
-    const { data: rows, error } = await supabase
-      .from('news')
-      .select('*')
-      .order('date', { ascending: false })
-      .limit(3);
-
-    if (error) throw error;
-    return rows || [];
-  } catch (error) {
-    console.error('Fetch latest news error:', error);
-    return [];
-  }
-}
-
-export default async function Home() {
-  const latestNews = await getLatestNews();
+export default function Home() {
+  const latestEvents = events.slice(0, 3);
+  const latestNews = news.slice(0, 3);
 
   return (
     <>
