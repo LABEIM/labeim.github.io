@@ -1642,3 +1642,18 @@ textarea.form-control {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
 }
+
+.page-transition { animation: fadeIn 0.4s ease-out; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hover-text-white { transition: color 0.2s; }
+.hover-text-white:hover { color: #ffffff !important; }
+
+.hover-bg-light { transition: background-color 0.2s; }
+.hover-bg-light:hover { background-color: rgba(255, 255, 255, 0.1) !important; }
+
+.hover-scale { transition: transform 0.3s; }
+.hover-scale:hover { transform: scale(1.1) !important; }

@@ -10,7 +10,33 @@ export default function Pendaftaran() {
   });
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [isExpired, setIsExpired] = useState(false);
   const router = useRouter();
+
+  // Atur tanggal penutupan pendaftaran di sini
+  const DEADLINE = new Date("2026-06-30T23:59:59").getTime();
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = DEADLINE - now;
+
+      if (distance < 0) {
+        clearInterval(timer);
+        setIsExpired(true);
+      } else {
+        setTimeLeft({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000)
+        });
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [DEADLINE]);
 
 
 
@@ -84,7 +110,35 @@ export default function Pendaftaran() {
               </div>
             )}
 
-            <form onSubmit={handleSubmit}>
+            {!isExpired && (
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '30px' }}>
+                <div style={{ textAlign: 'center', background: 'var(--bg-card)', padding: '10px 15px', borderRadius: '8px', minWidth: '70px', border: '1px solid var(--border-color)' }}>
+                  <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{timeLeft.days}</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Hari</div>
+                </div>
+                <div style={{ textAlign: 'center', background: 'var(--bg-card)', padding: '10px 15px', borderRadius: '8px', minWidth: '70px', border: '1px solid var(--border-color)' }}>
+                  <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{timeLeft.hours}</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Jam</div>
+                </div>
+                <div style={{ textAlign: 'center', background: 'var(--bg-card)', padding: '10px 15px', borderRadius: '8px', minWidth: '70px', border: '1px solid var(--border-color)' }}>
+                  <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{timeLeft.minutes}</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Menit</div>
+                </div>
+                <div style={{ textAlign: 'center', background: 'var(--bg-card)', padding: '10px 15px', borderRadius: '8px', minWidth: '70px', border: '1px solid var(--border-color)' }}>
+                  <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--accent-red)' }}>{timeLeft.seconds}</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Detik</div>
+                </div>
+              </div>
+            )}
+
+            {isExpired ? (
+              <div style={{ textAlign: 'center', padding: '40px 20px', backgroundColor: 'var(--bg-card)', borderRadius: '10px', border: '1px solid var(--border-color)' }}>
+                <i className="fa-solid fa-clock-rotate-left" style={{ fontSize: '3rem', color: 'var(--text-muted)', marginBottom: '15px' }}></i>
+                <h3 style={{ fontSize: '1.5rem', marginBottom: '10px', color: 'var(--text-primary)' }}>Waktu Pendaftaran Telah Habis</h3>
+                <p style={{ color: 'var(--text-secondary)' }}>Maaf, formulir pendaftaran asisten laboratorium saat ini sudah ditutup.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="nama_lengkap">Nama Lengkap</label>
                 <input type="text" className="form-control" id="nama_lengkap" placeholder="Nama lengkap" required value={formData.nama_lengkap} onChange={handleChange} />
@@ -153,7 +207,8 @@ export default function Pendaftaran() {
                   )}
                 </button>
               </div>
-            </form>
+              </form>
+            )}
           </div>
         </div>
       </section>
