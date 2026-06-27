@@ -152,30 +152,30 @@ session_start();
                         operasional secara terpadu.</p>
                 </div>
                 <div class="divisions-brief-grid">
-                    <div class="div-brief-card glass-panel">
+                    <a href="structure.php?div=inti" class="div-brief-card glass-panel" style="display: block; cursor: pointer;">
                         <h4>INTI</h4>
                         <p>Koordinator, Sekretaris, dan Bendahara yang mengelola operasional internal lab.</p>
-                    </div>
-                    <div class="div-brief-card glass-panel">
+                    </a>
+                    <a href="structure.php?div=riset" class="div-brief-card glass-panel" style="display: block; cursor: pointer;">
                         <h4>RISET</h4>
                         <p>Fokus pada penelitian infrastruktur, AI, dan publikasi ilmiah.</p>
-                    </div>
-                    <div class="div-brief-card glass-panel">
+                    </a>
+                    <a href="structure.php?div=pku" class="div-brief-card glass-panel" style="display: block; cursor: pointer;">
                         <h4>PKU</h4>
                         <p>Pengembangan Kapasitas Utama melalui pelatihan Cisco dan networking.</p>
-                    </div>
-                    <div class="div-brief-card glass-panel">
+                    </a>
+                    <a href="structure.php?div=lomba" class="div-brief-card glass-panel" style="display: block; cursor: pointer;">
                         <h4>LOMBA</h4>
                         <p>Mempersiapkan tim kompetitif untuk ajang kejuaraan IT & Jaringan nasional.</p>
-                    </div>
-                    <div class="div-brief-card glass-panel">
+                    </a>
+                    <a href="structure.php?div=medhum" class="div-brief-card glass-panel" style="display: block; cursor: pointer;">
                         <h4>MEDHUM</h4>
                         <p>Media dan Hubungan Masyarakat untuk branding dan penyebaran informasi.</p>
-                    </div>
-                    <div class="div-brief-card glass-panel">
+                    </a>
+                    <a href="structure.php?div=pengmas" class="div-brief-card glass-panel" style="display: block; cursor: pointer;">
                         <h4>PENGMAS</h4>
                         <p>Pengabdian Masyarakat yang selalu dilakukan secara berkala untuk membantu masyarakat.</p>
-                    </div>
+                    </a>
                 </div>
             </div>
 

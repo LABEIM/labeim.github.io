@@ -1,7 +1,165 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { news } from '@/lib/data';
 
 export default function NewsPage() {
+  const [news, setNews] = useState([]);
+  const [admin, setAdmin] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [modalActive, setModalActive] = useState(false);
+
+  // Form State
+  const [newsId, setNewsId] = useState('');
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('Pengumuman');
+  const [author, setAuthor] = useState('');
+  const [content, setContent] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  
+  const [fileLabel, setFileLabel] = useState('Klik atau seret gambar ke sini (Opsional)');
+  const [base64Image, setBase64Image] = useState('');
+
+  useEffect(() => {
+    fetchNews();
+    checkAdmin();
+  }, []);
+
+  const fetchNews = async () => {
+    try {
+      const res = await fetch('/api/news');
+      const data = await res.json();
+      if (res.ok) {
+        setNews(data);
+      }
+    } catch (err) {
+      console.error('Error fetching news:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const checkAdmin = async () => {
+    try {
+      const res = await fetch('/api/auth/session');
+      const data = await res.json();
+      if (data.loggedIn && data.user.role === 'admin') {
+        setAdmin(data.user);
+        setAuthor(data.user.nama); // Set current admin name as default author
+      }
+    } catch (err) {
+      console.error('Error checking session:', err);
+    }
+  };
+
+  const openAddModal = () => {
+    setNewsId('');
+    setTitle('');
+    setCategory('Pengumuman');
+    setAuthor(admin ? admin.nama : '');
+    setContent('');
+    setImageUrl('');
+    setFileLabel('Klik atau seret gambar ke sini (Opsional)');
+    setBase64Image('');
+    setModalActive(true);
+  };
+
+  const openEditModal = (item) => {
+    setNewsId(item.id);
+    setTitle(item.title);
+    setCategory(item.category);
+    setAuthor(item.author);
+    setContent(item.content);
+    setImageUrl('');
+    setFileLabel(item.image && item.image.length > 0 ? 'Gambar tersimpan di database' : 'Klik atau seret gambar ke sini (Opsional)');
+    setBase64Image(item.image && item.image.length > 0 ? item.image[0] : '');
+    setModalActive(true);
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert('Ukuran gambar terlalu besar! Maksimal 10MB.');
+      e.target.value = '';
+      return;
+    }
+
+    setFileLabel(`Berkas: ${file.name}`);
+    setImageUrl(''); // Clear URL field if upload is used
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setBase64Image(event.target.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleDelete = async (id) => {
+    if (!confirm('Apakah Anda yakin ingin menghapus berita ini?')) return;
+    try {
+      const res = await fetch('/api/news', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      });
+      if (res.ok) {
+        alert('Berita berhasil dihapus!');
+        fetchNews();
+      } else {
+        const err = await res.json();
+        alert(err.error || 'Gagal menghapus berita');
+      }
+    } catch (err) {
+      alert('Terjadi kesalahan');
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let finalImage = [];
+    if (base64Image) {
+      finalImage = [base64Image];
+    } else if (imageUrl) {
+      finalImage = [imageUrl];
+    } else {
+      finalImage = ["https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=600"];
+    }
+
+    const payload = {
+      title,
+      category,
+      author,
+      content,
+      image: finalImage
+    };
+
+    if (newsId) {
+      payload.id = newsId;
+    }
+
+    try {
+      const res = await fetch('/api/news', {
+        method: newsId ? 'PUT' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        alert(newsId ? 'Berita berhasil diperbarui!' : 'Berita baru berhasil diterbitkan!');
+        setModalActive(false);
+        fetchNews();
+      } else {
+        const err = await res.json();
+        alert(err.error || 'Gagal menyimpan berita');
+      }
+    } catch (err) {
+      alert('Terjadi kesalahan server');
+    }
+  };
+
   return (
     <>
       <section className="page-header" style={{ background: 'linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%)', padding: '120px 0 60px 0', textAlign: 'center' }}>
@@ -15,9 +173,22 @@ export default function NewsPage() {
 
       <section className="section-padding" style={{ background: 'var(--bg-primary)', minHeight: '60vh' }}>
         <div className="container">
-          {news.length === 0 ? (
-            <div className="news-empty-state glass-panel">
-              <i className="fa-regular fa-newspaper"></i>
+          {admin && (
+            <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+              <button onClick={openAddModal} className="btn btn-primary" style={{ boxShadow: 'var(--glow-cyan-intense)', transform: 'scale(1.05)' }}>
+                Tambah Berita Baru <i className="fa-solid fa-plus" style={{ marginLeft: '8px' }}></i>
+              </button>
+            </div>
+          )}
+
+          {loading ? (
+            <div style={{ textAlign: 'center', padding: '50px 0', color: 'var(--text-secondary)' }}>
+              <i className="fa-solid fa-circle-notch fa-spin fa-3x" style={{ color: 'var(--accent-cyan)' }}></i>
+              <p style={{ marginTop: '15px' }}>Memuat berita...</p>
+            </div>
+          ) : news.length === 0 ? (
+            <div className="news-empty-state glass-panel" style={{ textAlign: 'center', padding: '50px 0' }}>
+              <i className="fa-regular fa-newspaper" style={{ fontSize: '4rem', opacity: 0.3, marginBottom: '20px' }}></i>
               <h3>Belum ada Berita</h3>
               <p>Belum ada artikel atau berita yang dipublikasikan.</p>
             </div>
@@ -41,10 +212,23 @@ export default function NewsPage() {
                       <p className="news-desc" style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '20px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                         {item.content}
                       </p>
+                      
                       <div style={{ marginTop: 'auto' }}>
                         <Link href={`/news/${item.id}`} className="btn btn-secondary btn-read-more" style={{ width: '100%', padding: '10px', fontSize: '0.95rem', textAlign: 'center' }}>
                           Baca Selengkapnya <i className="fa-solid fa-arrow-right" style={{ marginLeft: '5px' }}></i>
                         </Link>
+
+                        {admin && (
+                          <div className="news-action-btns" style={{ display: 'flex', gap: '10px', marginTop: '15px', borderTop: '1px solid var(--border-color)', paddingTop: '15px' }}>
+                            <button className="btn btn-secondary" onClick={() => openEditModal(item)} style={{ flex: 1, padding: '8px', fontSize: '0.85rem' }}>
+                              <i className="fa-solid fa-pen-to-square" style={{ marginRight: '6px' }}></i> Edit
+                            </button>
+                            <button className="btn btn-danger" onClick={() => handleDelete(item.id)} style={{ flex: 1, padding: '8px', fontSize: '0.85rem' }}>
+                              <i className="fa-solid fa-trash-can" style={{ marginRight: '6px' }}></i> Hapus
+                            </button>
+                          </div>
+                        )}
+
                         <div className="news-footer" style={{ marginTop: '20px', paddingTop: '15px', borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
                           <span className="news-author"><i className="fa-solid fa-pen-nib" style={{ marginRight: '6px' }}></i> {item.author}</span>
                         </div>
@@ -57,6 +241,69 @@ export default function NewsPage() {
           )}
         </div>
       </section>
+
+      {/* --- ADD / EDIT NEWS MODAL --- */}
+      <div className={`modal ${modalActive ? 'active' : ''}`} id="news-modal">
+        <div className="modal-overlay" onClick={() => setModalActive(false)}></div>
+        <div className="modal-wrapper" style={{ color: 'var(--text-primary)' }}>
+          <div className="modal-header">
+            <h3 style={{ fontSize: '1.4rem', fontWeight: 'bold' }}>
+              {newsId ? 'Sunting Berita' : 'Tambah Berita Baru'}
+            </h3>
+            <span className="modal-close" onClick={() => setModalActive(false)}>&times;</span>
+          </div>
+
+          <form onSubmit={handleSubmit} id="news-form">
+            <div className="form-group">
+              <label htmlFor="news-input-title">Judul Berita</label>
+              <input type="text" className="form-control modal-input" id="news-input-title" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Masukkan judul berita" />
+            </div>
+
+            <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+              <div className="form-group">
+                <label htmlFor="news-input-category">Kategori</label>
+                <select className="form-control modal-input" id="news-input-category" value={category} onChange={(e) => setCategory(e.target.value)}>
+                  <option value="Pengumuman">Pengumuman</option>
+                  <option value="Beasiswa">Beasiswa</option>
+                  <option value="Riset & Teknologi">Riset & Teknologi</option>
+                  <option value="Prestasi">Prestasi</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="news-input-author">Penulis</label>
+                <input type="text" className="form-control modal-input" id="news-input-author" required value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Nama penulis" />
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="news-input-content">Konten Berita</label>
+              <textarea className="form-control modal-input" id="news-input-content" required value={content} onChange={(e) => setContent(e.target.value)} placeholder="Tuliskan isi berita di sini..." style={{ minHeight: '180px' }}></textarea>
+            </div>
+
+            <div className="form-group" style={{ border: '1px dashed var(--border-color)', borderRadius: '8px', padding: '20px', textAlign: 'center' }}>
+              <label htmlFor="news-input-file" style={{ cursor: 'pointer', margin: 0 }}>
+                <i className="fa-solid fa-cloud-arrow-up fa-2x" style={{ color: 'var(--accent-cyan)', marginBottom: '10px', display: 'block' }}></i>
+                <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>{fileLabel}</span>
+                <input type="file" id="news-input-file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }} />
+              </label>
+            </div>
+
+            <div className="form-group" style={{ textAlign: 'center', margin: '10px 0' }}>
+              <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>ATAU Masukkan URL Gambar:</span>
+              <input type="text" className="form-control modal-input" id="news-input-url" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="Contoh: https://example.com/image.jpg" />
+            </div>
+
+            <div className="form-actions" style={{ display: 'flex', gap: '15px', marginTop: '30px' }}>
+              <button type="button" className="btn btn-secondary" onClick={() => setModalActive(false)} style={{ flex: 1 }}>
+                Batal
+              </button>
+              <button type="submit" className="btn btn-primary" style={{ flex: 1 }}>
+                Terbitkan
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </>
   );
 }

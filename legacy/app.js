@@ -590,13 +590,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const filterTabs = document.querySelectorAll(".filter-tab");
 
     if (memberGrid) {
-        renderMembers("all");
+        // Read URL search parameter for 'div' or 'divisi'
+        const urlParams = new URLSearchParams(window.location.search);
+        const divParam = urlParams.get('div') || urlParams.get('divisi') || 'all';
+
+        // Update active class on tabs based on URL parameter
+        filterTabs.forEach(t => t.classList.remove("active"));
+        const activeTab = Array.from(filterTabs).find(t => t.getAttribute("data-filter") === divParam.toLowerCase());
+        if (activeTab) {
+            activeTab.classList.add("active");
+        } else {
+            const allTab = Array.from(filterTabs).find(t => t.getAttribute("data-filter") === "all");
+            if (allTab) allTab.classList.add("active");
+        }
+
+        renderMembers(divParam);
 
         filterTabs.forEach(tab => {
             tab.addEventListener("click", function () {
                 filterTabs.forEach(t => t.classList.remove("active"));
                 this.classList.add("active");
                 const filterVal = this.getAttribute("data-filter");
+                // Update URL parameter without reloading page
+                const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?div=' + filterVal;
+                window.history.pushState({ path: newUrl }, '', newUrl);
                 renderMembers(filterVal);
             });
         });

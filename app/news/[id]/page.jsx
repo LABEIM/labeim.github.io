@@ -1,9 +1,32 @@
 import Link from 'next/link';
-import { getNewsById } from '@/lib/data';
+import { getDbPool } from '@/lib/db';
 
 export default async function NewsDetailPage({ params }) {
   const resolvedParams = await params;
-  const news = getNewsById(resolvedParams.id);
+  
+  let news = null;
+  try {
+    const db = await getDbPool();
+    const [rows] = await db.query('SELECT * FROM news WHERE id = ?', [resolvedParams.id]);
+    if (rows.length > 0) {
+      const item = rows[0];
+      
+      let image = [];
+      try { 
+        image = item.image ? JSON.parse(item.image) : []; 
+      } catch(err) { 
+        image = item.image ? [item.image] : []; 
+      }
+      
+      news = {
+        ...item,
+        date: item.news_date,
+        image
+      };
+    }
+  } catch (err) {
+    console.error('Failed to query news detail from database:', err);
+  }
 
   if (!news) {
     return (
@@ -45,6 +68,13 @@ export default async function NewsDetailPage({ params }) {
           {/* Left Column */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
             
+            {/* Cover Image */}
+            {news.image && news.image.length > 0 && (
+              <div style={{ borderRadius: '16px', overflow: 'hidden', height: '350px', width: '100%', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+                <img src={news.image[0]} alt={news.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+            )}
+
             {/* Deskripsi */}
             <div>
               <h3 style={{ fontSize: '1.4rem', color: '#11B4BD', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px', fontFamily: 'var(--font-heading)' }}>

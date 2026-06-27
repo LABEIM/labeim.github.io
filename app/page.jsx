@@ -1,9 +1,37 @@
 import Link from 'next/link';
-import { events, news } from '@/lib/data';
+import { getDbPool } from '@/lib/db';
 
-export default function Home() {
-  const latestEvents = events.slice(0, 3);
-  const latestNews = news.slice(0, 3);
+export default async function Home() {
+  let latestEvents = [];
+  let latestNews = [];
+
+  try {
+    const db = await getDbPool();
+    const [eventRows] = await db.query('SELECT * FROM events ORDER BY event_date DESC LIMIT 3');
+    latestEvents = eventRows.map(event => {
+      let image = [];
+      try { 
+        image = event.image ? JSON.parse(event.image) : []; 
+      } catch(e) { 
+        image = event.image ? [event.image] : []; 
+      }
+      return { ...event, image };
+    });
+
+    const [newsRows] = await db.query('SELECT * FROM news ORDER BY news_date DESC LIMIT 3');
+    latestNews = newsRows.map(item => {
+      let image = [];
+      try { 
+        image = item.image ? JSON.parse(item.image) : []; 
+      } catch(e) { 
+        image = item.image ? [item.image] : []; 
+      }
+      return { ...item, date: item.news_date, image };
+    });
+  } catch (error) {
+    console.error('Error fetching database news and events for homepage:', error);
+  }
+
 
   return (
     <>
@@ -89,7 +117,7 @@ export default function Home() {
             </div>
             <div className="divisions-brief-grid">
               {['INTI', 'RISET', 'PKU', 'LOMBA', 'MEDHUM', 'PENGMAS'].map(div => (
-                <div key={div} className="div-brief-card glass-panel">
+                <Link href={`/structure?div=${div.toLowerCase()}`} key={div} className="div-brief-card glass-panel" style={{ display: 'block', cursor: 'pointer' }}>
                   <h4>{div}</h4>
                   <p>
                     {div === 'INTI' && 'Koordinator, Sekretaris, dan Bendahara yang mengelola operasional internal lab.'}
@@ -99,7 +127,7 @@ export default function Home() {
                     {div === 'MEDHUM' && 'Media dan Hubungan Masyarakat untuk branding dan penyebaran informasi.'}
                     {div === 'PENGMAS' && 'Pengabdian Masyarakat yang selalu dilakukan secara berkala untuk membantu masyarakat.'}
                   </p>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -117,13 +145,15 @@ export default function Home() {
                   <p style={{ color: 'var(--text-secondary)' }}>Belum ada berita terbaru.</p>
                 </div>
               ) : (
-                latestNews.map(news => (
-                  <div key={news.id} className="news-card glass-panel">
-                    <div className="news-img" style={{ position: 'relative', height: '200px', overflow: 'hidden', borderRadius: '12px 12px 0 0' }}>
-                      <img src={news.image || "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=600"} alt={news.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      <span className="news-tag" style={{ position: 'absolute', top: '15px', right: '15px', background: 'var(--accent-cyan)', color: '#000', padding: '5px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{news.category}</span>
-                    </div>
-                    <div className="news-content" style={{ padding: '20px' }}>
+                latestNews.map(news => {
+                  const coverImg = (news.image && news.image.length > 0) ? news.image[0] : "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=600";
+                  return (
+                    <div key={news.id} className="news-card glass-panel">
+                      <div className="news-img" style={{ position: 'relative', height: '200px', overflow: 'hidden', borderRadius: '12px 12px 0 0' }}>
+                        <img src={coverImg} alt={news.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        <span className="news-tag" style={{ position: 'absolute', top: '15px', right: '15px', background: 'var(--accent-cyan)', color: '#000', padding: '5px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{news.category}</span>
+                      </div>
+                      <div className="news-content" style={{ padding: '20px' }}>
                       <div className="news-date" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '10px' }}>
                         <i className="fa-regular fa-calendar"></i> {new Date(news.date).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
                       </div>
@@ -134,8 +164,9 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                ))
-              )}
+                );
+              })
+            )}
             </div>
             <div style={{ textAlign: 'center', marginTop: '40px' }}>
               <Link href="/news" className="btn btn-secondary">

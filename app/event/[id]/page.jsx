@@ -1,9 +1,49 @@
 import Link from 'next/link';
-import { getEventById } from '@/lib/data';
+import { getDbPool } from '@/lib/db';
+
+export const dynamic = 'force-dynamic';
 
 export default async function EventDetailPage({ params }) {
   const resolvedParams = await params;
-  const event = getEventById(resolvedParams.id);
+  
+  let event = null;
+  try {
+    const db = await getDbPool();
+    const [rows] = await db.query('SELECT * FROM events WHERE id = ?', [resolvedParams.id]);
+    if (rows.length > 0) {
+      const e = rows[0];
+      
+      let image = [];
+      let benefits = [];
+      let requirements = [];
+      try { 
+        image = e.image ? JSON.parse(e.image) : []; 
+      } catch(err) { 
+        image = e.image ? [e.image] : []; 
+      }
+      try { 
+        benefits = e.benefits ? JSON.parse(e.benefits) : []; 
+      } catch(err) { 
+        benefits = []; 
+      }
+      try { 
+        requirements = e.requirements ? JSON.parse(e.requirements) : []; 
+      } catch(err) { 
+        requirements = []; 
+      }
+      
+      event = {
+        ...e,
+        image,
+        benefits,
+        requirements,
+        show_register: e.show_register !== 0
+      };
+    }
+  } catch (err) {
+    console.error('Failed to query event detail from database:', err);
+  }
+
 
   if (!event) {
     return (
@@ -95,12 +135,14 @@ export default async function EventDetailPage({ params }) {
 
               {/* Status */}
               <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '8px', backgroundColor: 'var(--bg-card)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#11B4BD', fontSize: '1.2rem', flexShrink: 0, border: '1px solid var(--border-color)' }}>
-                  <i className={`fa-solid ${event.status === 'completed' ? 'fa-circle-check' : 'fa-clock'}`}></i>
+                <div style={{ width: '40px', height: '40px', borderRadius: '8px', backgroundColor: 'var(--bg-card)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: event.status === 'ongoing' ? '#ff9800' : '#11B4BD', fontSize: '1.2rem', flexShrink: 0, border: '1px solid var(--border-color)' }}>
+                  <i className={`fa-solid ${event.status === 'completed' ? 'fa-circle-check' : (event.status === 'ongoing' ? 'fa-spinner fa-spin' : 'fa-clock')}`}></i>
                 </div>
                 <div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}>Status</div>
-                  <div style={{ color: 'var(--text-primary)', fontWeight: '600', fontSize: '0.95rem' }}>{event.status === 'completed' ? 'Selesai' : 'Akan Datang'}</div>
+                  <div style={{ color: 'var(--text-primary)', fontWeight: '600', fontSize: '0.95rem' }}>
+                    {event.status === 'completed' ? 'Selesai' : (event.status === 'ongoing' ? 'Sedang Berlangsung' : 'Akan Datang')}
+                  </div>
                 </div>
               </div>
 
@@ -116,7 +158,7 @@ export default async function EventDetailPage({ params }) {
               </div>
             </div>
 
-            {event.status !== 'completed' && (
+            {event.show_register && event.status !== 'completed' && (
               <>
                 <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', padding: '14px', fontSize: '1rem', borderRadius: '8px', marginBottom: '16px' }}>
                   Daftar Sekarang
