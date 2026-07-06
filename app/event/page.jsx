@@ -12,7 +12,7 @@ export default function EventsPage() {
   const [loading, setLoading] = useState(true);
 
   const [modalActive, setModalActive] = useState(false);
-  
+
   // Form State
   const [eventId, setEventId] = useState('');
   const [title, setTitle] = useState('');
@@ -27,7 +27,7 @@ export default function EventsPage() {
 
   const [benefitsText, setBenefitsText] = useState('');
   const [requirementsText, setRequirementsText] = useState('');
-  
+
   const [fileLabel, setFileLabel] = useState('Klik atau seret gambar ke sini (Opsional)');
   const [base64Images, setBase64Images] = useState([]);
   const [showRegister, setShowRegister] = useState(true);
@@ -89,7 +89,7 @@ export default function EventsPage() {
     setTitle(event.title);
     setCategory(event.category);
     setStatus(event.status);
-    
+
     let parsedDate = '';
     let parsedStartTime = '';
     let parsedEndTime = '';
@@ -99,7 +99,7 @@ export default function EventsPage() {
       const timeMatch = str.match(/\(([^)]+)\)/);
       let datePart = str;
       let timePart = '';
-      
+
       if (timeMatch) {
         timePart = timeMatch[1].trim();
         datePart = str.replace(/\([^)]+\)/, '').trim();
@@ -175,11 +175,37 @@ export default function EventsPage() {
     Array.from(files).forEach(file => {
       const reader = new FileReader();
       reader.onload = (event) => {
-        newBase64s.push(event.target.result);
-        processed++;
-        if (processed === files.length) {
-          setBase64Images(newBase64s);
-        }
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+
+          const MAX_SIZE = 1200; // Resize to max 1200px
+
+          if (width > height && width > MAX_SIZE) {
+            height *= MAX_SIZE / width;
+            width = MAX_SIZE;
+          } else if (height > MAX_SIZE) {
+            width *= MAX_SIZE / height;
+            height = MAX_SIZE;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Compress as JPEG with 80% quality to drastically reduce size
+          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8);
+          newBase64s.push(compressedBase64);
+
+          processed++;
+          if (processed === files.length) {
+            setBase64Images(newBase64s);
+          }
+        };
+        img.src = event.target.result;
       };
       reader.readAsDataURL(file);
     });
@@ -206,7 +232,7 @@ export default function EventsPage() {
   };
 
   const getEventIcon = (cat) => {
-    switch(cat) {
+    switch (cat) {
       case "Study Group": return "fa-graduation-cap";
       case "Kuliah Umum": return "fa-chalkboard-user";
       case "Company Visit": return "fa-building-columns";
@@ -217,10 +243,10 @@ export default function EventsPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const benefits = benefitsText ? benefitsText.split('\n').map(s => s.trim()).filter(s => s) : [];
     const requirements = requirementsText ? requirementsText.split('\n').map(s => s.trim()).filter(s => s) : [];
-    
+
     let finalImage = [];
     if (base64Images.length > 0) {
       finalImage = base64Images;
@@ -267,7 +293,7 @@ export default function EventsPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      
+
       if (res.ok) {
         alert(eventId ? 'Event berhasil diperbarui!' : 'Event baru berhasil ditambahkan!');
         setModalActive(false);
@@ -359,7 +385,7 @@ export default function EventsPage() {
                         <button className="btn btn-secondary" onClick={() => openEditModal(event)} style={{ flex: 1, padding: '8px', fontSize: '0.85rem' }}>
                           <i className="fa-solid fa-pen-to-square" style={{ marginRight: '6px' }}></i> Edit
                         </button>
-                        <button className="btn btn-danger" onClick={() => handleDelete(event.id)} style={{ flex: 1, padding: '8px', fontSize: '0.85rem' }}>
+                        <button className="btn btn-danger" onClick={() => handleDelete(event.id)} style={{ flex: 1, padding: '8px', fontSize: '0.85rem', color: '#fff' }}>
                           <i className="fa-solid fa-trash-can" style={{ marginRight: '6px' }}></i> Hapus
                         </button>
                       </div>
@@ -386,7 +412,7 @@ export default function EventsPage() {
             </h3>
             <span className="modal-close" onClick={() => setModalActive(false)}>&times;</span>
           </div>
-          
+
           <form onSubmit={handleSubmit} id="event-form">
             <div className="form-group">
               <label htmlFor="event-input-title">Judul Event</label>
@@ -396,14 +422,14 @@ export default function EventsPage() {
             <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
               <div className="form-group">
                 <label htmlFor="event-input-category">Kategori</label>
-                <input 
-                  type="text" 
-                  className="form-control modal-input" 
-                  id="event-input-category" 
-                  required 
-                  value={category} 
-                  onChange={(e) => setCategory(e.target.value)} 
-                  placeholder="Masukkan kategori (misal: Study Group)" 
+                <input
+                  type="text"
+                  className="form-control modal-input"
+                  id="event-input-category"
+                  required
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  placeholder="Masukkan kategori (misal: Study Group)"
                 />
               </div>
               <div className="form-group">
@@ -426,15 +452,15 @@ export default function EventsPage() {
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', height: '21px' }}>
                   <label htmlFor="event-input-start-time" style={{ margin: 0, whiteSpace: 'nowrap' }}>Jam Mulai</label>
                   {eventStartTime && (
-                    <button 
-                      type="button" 
-                      onClick={() => setEventStartTime('')} 
-                      style={{ 
-                        background: 'none', 
-                        border: 'none', 
-                        color: '#ff4d4d', 
-                        cursor: 'pointer', 
-                        fontSize: '0.85rem', 
+                    <button
+                      type="button"
+                      onClick={() => setEventStartTime('')}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#ff4d4d',
+                        cursor: 'pointer',
+                        fontSize: '0.85rem',
                         padding: 0,
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -458,15 +484,15 @@ export default function EventsPage() {
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', height: '21px' }}>
                   <label htmlFor="event-input-end-time" style={{ margin: 0, whiteSpace: 'nowrap' }}>Jam Selesai</label>
                   {eventEndTime && (
-                    <button 
-                      type="button" 
-                      onClick={() => setEventEndTime('')} 
-                      style={{ 
-                        background: 'none', 
-                        border: 'none', 
-                        color: '#ff4d4d', 
-                        cursor: 'pointer', 
-                        fontSize: '0.85rem', 
+                    <button
+                      type="button"
+                      onClick={() => setEventEndTime('')}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#ff4d4d',
+                        cursor: 'pointer',
+                        fontSize: '0.85rem',
                         padding: 0,
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -514,11 +540,11 @@ export default function EventsPage() {
             </div>
 
             <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: '20px 0' }}>
-              <input 
-                type="checkbox" 
-                id="event-input-show-register" 
-                checked={showRegister} 
-                onChange={(e) => setShowRegister(e.target.checked)} 
+              <input
+                type="checkbox"
+                id="event-input-show-register"
+                checked={showRegister}
+                onChange={(e) => setShowRegister(e.target.checked)}
                 style={{ width: '20px', height: '20px', cursor: 'pointer' }}
               />
               <label htmlFor="event-input-show-register" style={{ cursor: 'pointer', margin: 0, fontWeight: 'normal', color: 'var(--text-secondary)' }}>

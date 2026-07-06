@@ -16,7 +16,7 @@ export default function NewsPage() {
   const [author, setAuthor] = useState('');
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  
+
   const [fileLabel, setFileLabel] = useState('Klik atau seret gambar ke sini (Opsional)');
   const [base64Image, setBase64Image] = useState('');
 
@@ -91,7 +91,30 @@ export default function NewsPage() {
 
     const reader = new FileReader();
     reader.onload = (event) => {
-      setBase64Image(event.target.result);
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+
+        const MAX_SIZE = 1200;
+        if (width > height && width > MAX_SIZE) {
+          height *= MAX_SIZE / width;
+          width = MAX_SIZE;
+        } else if (height > MAX_SIZE) {
+          width *= MAX_SIZE / height;
+          height = MAX_SIZE;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8);
+        setBase64Image(compressedBase64);
+      };
+      img.src = event.target.result;
     };
     reader.readAsDataURL(file);
   };
@@ -212,7 +235,7 @@ export default function NewsPage() {
                       <p className="news-desc" style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '20px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                         {item.content}
                       </p>
-                      
+
                       <div style={{ marginTop: 'auto' }}>
                         <Link href={`/news/${item.id}`} className="btn btn-secondary btn-read-more" style={{ width: '100%', padding: '10px', fontSize: '0.95rem', textAlign: 'center' }}>
                           Baca Selengkapnya <i className="fa-solid fa-arrow-right" style={{ marginLeft: '5px' }}></i>
@@ -223,7 +246,7 @@ export default function NewsPage() {
                             <button className="btn btn-secondary" onClick={() => openEditModal(item)} style={{ flex: 1, padding: '8px', fontSize: '0.85rem' }}>
                               <i className="fa-solid fa-pen-to-square" style={{ marginRight: '6px' }}></i> Edit
                             </button>
-                            <button className="btn btn-danger" onClick={() => handleDelete(item.id)} style={{ flex: 1, padding: '8px', fontSize: '0.85rem' }}>
+                            <button className="btn btn-danger" onClick={() => handleDelete(item.id)} style={{ flex: 1, padding: '8px', fontSize: '0.85rem', color: '#fff' }}>
                               <i className="fa-solid fa-trash-can" style={{ marginRight: '6px' }}></i> Hapus
                             </button>
                           </div>

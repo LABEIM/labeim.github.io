@@ -48,7 +48,7 @@ export default function Register() {
             <div className="registration-header" style={{ textAlign: 'center', marginBottom: '30px' }}>
               <h2>Buat Akun Anda</h2>
             </div>
-            
+
             {status?.type === 'error' && (
               <div style={{ backgroundColor: 'rgba(255,0,0,0.1)', color: '#ff6b6b', padding: '10px', borderRadius: '5px', marginBottom: '15px', textAlign: 'center' }}>
                 {status.message}
@@ -59,7 +59,7 @@ export default function Register() {
                 {status.message}
               </div>
             )}
-            
+
             <form onSubmit={handleRegister}>
               <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                 <div className="form-group">
@@ -85,26 +85,41 @@ export default function Register() {
                 <label htmlFor="email">Email</label>
                 <input type="email" name="email" className="form-control" id="email" placeholder="Email" required value={formData.email} onChange={handleChange} />
               </div>
-              <div className="form-group" style={{ marginTop: '15px', position: 'relative' }}>
-                <label htmlFor="password">Password</label>
-                <input 
-                  type={showPassword ? 'text' : 'password'} 
-                  name="password" 
-                  className="form-control" 
-                  id="password" 
-                  placeholder="Password" 
-                  required 
-                  value={formData.password} 
-                  onChange={handleChange} 
-                  style={{ paddingRight: '40px' }}
-                />
-                <button 
-                  type="button" 
-                  onClick={() => setShowPassword(!showPassword)}
-                  style={{ position: 'absolute', right: '10px', top: '35px', background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer' }}
-                >
-                  <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
-                </button>
+              <div className="form-group" style={{ marginTop: '15px' }}>
+                <label htmlFor="password" style={{ display: 'block', marginBottom: '8px' }}>Password</label>
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    className="form-control"
+                    id="password"
+                    placeholder="Password"
+                    required
+                    value={formData.password}
+                    onChange={handleChange}
+                    style={{ paddingRight: '45px' }}
+                  />
+                  <div
+                    onClick={() => setShowPassword(prev => !prev)}
+                    style={{ 
+                      position: 'absolute', 
+                      right: '10px', 
+                      top: '50%', 
+                      transform: 'translateY(-50%)', 
+                      zIndex: 100, 
+                      color: 'var(--text-secondary)', 
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '30px',
+                      height: '30px',
+                      userSelect: 'none'
+                    }}
+                  >
+                    <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                  </div>
+                </div>
               </div>
               <div className="form-actions" style={{ justifyContent: 'center', marginTop: '40px' }}>
                 <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '14px', fontSize: '1.1rem' }}>

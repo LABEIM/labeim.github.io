@@ -63,86 +63,48 @@ export default async function NewsDetailPage({ params }) {
 
       {/* Main Content Section */}
       <section style={{ padding: '60px 0' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '40px', alignItems: 'start' }} className="responsive-grid">
+        <div className="container responsive-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '40px', alignItems: 'start' }}>
           
           {/* Left Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
             
             {/* Cover Image */}
             {news.image && news.image.length > 0 && (
-              <div style={{ borderRadius: '16px', overflow: 'hidden', height: '350px', width: '100%', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
-                <img src={news.image[0]} alt={news.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div style={{ borderRadius: '16px', overflow: 'hidden', width: '100%', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)' }}>
+                <img src={news.image[0]} alt={news.title} style={{ width: '100%', maxHeight: '500px', objectFit: 'cover', display: 'block' }} />
               </div>
             )}
 
-            {/* Deskripsi */}
-            <div>
-              <h3 style={{ fontSize: '1.4rem', color: '#11B4BD', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px', fontFamily: 'var(--font-heading)' }}>
-                <i className="fa-solid fa-graduation-cap"></i> Deskripsi
-              </h3>
-              <p style={{ color: 'var(--text-secondary)', lineHeight: '1.7', fontSize: '1.05rem', whiteSpace: 'pre-line' }}>
-                {news.content}
-              </p>
+            {/* Content */}
+            <div className="news-content-body" style={{ color: 'var(--text-secondary)', lineHeight: '1.8', fontSize: '1.1rem', whiteSpace: 'pre-line' }}>
+              {news.content}
             </div>
-
-            {/* Keuntungan Beasiswa */}
-            {news.benefits && news.benefits.length > 0 && (
-              <div>
-                <h3 style={{ fontSize: '1.4rem', color: '#11B4BD', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px', fontFamily: 'var(--font-heading)' }}>
-                  <i className="fa-solid fa-dollar-sign"></i> Keuntungan Beasiswa
-                </h3>
-                <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
-                  {news.benefits.map((benefit, idx) => (
-                    <li key={idx} style={{ color: 'var(--text-secondary)', marginBottom: '14px', paddingLeft: '24px', position: 'relative', lineHeight: '1.6', fontSize: '1rem' }}>
-                      <span style={{ position: 'absolute', left: 0, top: '10px', width: '5px', height: '5px', backgroundColor: 'var(--accent-cyan)', borderRadius: '50%' }}></span>
-                      {benefit}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {/* Persyaratan */}
-            {news.requirements && news.requirements.length > 0 && (
-              <div>
-                <h3 style={{ fontSize: '1.4rem', color: '#11B4BD', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px', fontFamily: 'var(--font-heading)' }}>
-                  <i className="fa-regular fa-circle-check"></i> Persyaratan
-                </h3>
-                <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
-                  {news.requirements.map((req, idx) => (
-                    <li key={idx} style={{ color: '#cbd5e1', marginBottom: '14px', paddingLeft: '24px', position: 'relative', lineHeight: '1.6', fontSize: '1rem' }}>
-                      <span style={{ position: 'absolute', left: 0, top: '10px', width: '5px', height: '5px', backgroundColor: '#cbd5e1', borderRadius: '50%' }}></span>
-                      {req}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
           </div>
 
           {/* Right Column (Sidebar) */}
-          <div className="glass-panel" style={{ borderRadius: '16px', padding: '30px', boxShadow: 'var(--shadow-md)' }}>
+          <div className="glass-panel" style={{ borderRadius: '16px', padding: '30px', boxShadow: 'var(--shadow-md)', position: 'sticky', top: '100px' }}>
             <h3 style={{ fontSize: '1.25rem', color: 'var(--text-primary)', marginBottom: '24px', borderBottom: '1px solid var(--border-color)', paddingBottom: '16px', fontFamily: 'var(--font-heading)' }}>
-              Informasi Penting
+              Informasi Berita
             </h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '30px' }}>
-              {/* Tenggat Waktu */}
+              {/* Tanggal */}
               <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '8px', backgroundColor: 'var(--bg-card)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#11B4BD', fontSize: '1.2rem', flexShrink: 0, border: '1px solid var(--border-color)' }}>
-                  <i className="fa-regular fa-calendar"></i>
+                  <i className="fa-regular fa-calendar-days"></i>
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}>Tenggat Waktu</div>
-                  <div style={{ color: 'var(--text-primary)', fontWeight: '600', fontSize: '0.95rem' }}>{news.deadline || "Tidak ditentukan"}</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}>Tanggal Publikasi</div>
+                  <div style={{ color: 'var(--text-primary)', fontWeight: '600', fontSize: '0.95rem' }}>
+                    {new Date(news.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  </div>
                 </div>
               </div>
 
               {/* Kategori */}
               <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '8px', backgroundColor: 'var(--bg-card)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#11B4BD', fontSize: '1.2rem', flexShrink: 0, border: '1px solid var(--border-color)' }}>
-                  <i className="fa-solid fa-dollar-sign"></i>
+                  <i className="fa-solid fa-tag"></i>
                 </div>
                 <div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}>Kategori</div>
@@ -150,25 +112,21 @@ export default async function NewsDetailPage({ params }) {
                 </div>
               </div>
 
-              {/* Penyelenggara */}
+              {/* Penulis */}
               <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '8px', backgroundColor: 'var(--bg-card)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#11B4BD', fontSize: '1.2rem', flexShrink: 0, border: '1px solid var(--border-color)' }}>
-                  <i className="fa-solid fa-location-dot"></i>
+                  <i className="fa-solid fa-pen-nib"></i>
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}>Penyelenggara</div>
-                  <div style={{ color: 'var(--text-primary)', fontWeight: '600', fontSize: '0.95rem' }}>{news.provider || news.author || "-"}</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}>Penulis</div>
+                  <div style={{ color: 'var(--text-primary)', fontWeight: '600', fontSize: '0.95rem' }}>{news.author || "-"}</div>
                 </div>
               </div>
             </div>
 
-            <Link href={news.register_link || "#"} target="_blank" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', padding: '14px', fontSize: '1rem', borderRadius: '8px', marginBottom: '16px' }}>
-              Daftar Sekarang
-            </Link>
-            
-            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center', margin: 0, lineHeight: '1.6' }}>
-              *Akan diarahkan ke website resmi<br/>penyelenggara
-            </p>
+            <button className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center', padding: '12px', fontSize: '0.95rem', borderRadius: '8px', display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <i className="fa-solid fa-share-nodes"></i> Bagikan Berita
+            </button>
           </div>
         </div>
       </section>
