@@ -24,11 +24,11 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="about-image" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <img src="/img/Salinan EIM.png" alt="EIM Lab" style={{ borderRadius: 'var(--border-radius-md)', boxShadow: 'var(--shadow-md)', maxHeight: '280px', objectFit: 'contain', padding: '50px', background: 'white' }} />
+              <img src="/img/Salinan EIM.png" alt="EIM Lab" />
             </div>
           </div>
 
-          <div className="about-visimisi-grid glass-panel" style={{ padding: '40px', marginBottom: '80px' }}>
+          <div className="about-visimisi-grid glass-panel" style={{ marginBottom: '80px' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '40px' }}>
               <div>
                 <h3 style={{ fontSize: '1.8rem', marginBottom: '16px', color: 'var(--accent-red)', display: 'flex', alignItems: 'center', gap: '8px' }}>

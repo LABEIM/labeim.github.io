@@ -1506,11 +1506,18 @@ textarea.form-control {
 
 .about-visimisi-grid {
     border-top: 3px solid var(--accent-red);
+    padding: 40px;
 }
 
 .about-image img {
     max-width: 100%;
     height: auto;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    max-height: 280px;
+    object-fit: contain;
+    padding: 50px;
+    background: white;
 }
 
 /* Division Brief Grid (Beranda) */
@@ -1731,7 +1738,7 @@ textarea.form-control {
     /* Elemen container akan memenuhi lebar layar */
     .container {
         width: 100%;
-        padding: 10px;
+        padding: 15px;
     }
 
     /* Mengubah susunan kolom menjadi ke bawah (vertikal) */
@@ -1739,5 +1746,63 @@ textarea.form-control {
         width: 100%;
         display: block;
         margin-bottom: 15px;
+    }
+
+    /* Perbaikan font & padding global untuk Mobile */
+    h1 {
+        font-size: 2.2rem !important;
+        letter-spacing: -0.5px !important;
+    }
+
+    h2 {
+        font-size: 1.7rem !important;
+    }
+
+    h3 {
+        font-size: 1.3rem !important;
+    }
+
+    .section-padding {
+        padding: 50px 0 !important;
+    }
+
+    .page-header {
+        padding-top: 110px !important;
+        padding-bottom: 45px !important;
+    }
+
+    .page-header-content h1 {
+        font-size: 2.2rem !important;
+    }
+
+    .hero {
+        padding-top: 90px !important;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem !important;
+    }
+
+    /* Perbaikan Tentang Kami (About Page) di Mobile */
+    .about-overview-grid {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        text-align: center;
+    }
+
+    .about-image img {
+        padding: 20px !important;
+        max-height: 200px !important;
+        margin: 0 auto;
+    }
+
+    .about-visimisi-grid {
+        padding: 20px 15px !important;
+        margin-bottom: 40px !important;
+    }
+
+    .about-visimisi-grid > div {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
     }
 }
