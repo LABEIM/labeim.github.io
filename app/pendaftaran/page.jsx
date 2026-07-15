@@ -15,7 +15,7 @@ export default function Pendaftaran() {
   const router = useRouter();
 
   // Atur tanggal penutupan pendaftaran di sini
-  const DEADLINE = new Date("2026-06-30T23:59:59").getTime();
+  const DEADLINE = new Date("2026-08-17T23:59:59").getTime();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -53,7 +53,14 @@ export default function Pendaftaran() {
 
     setLoading(true);
     try {
-      const scriptURL = "https://script.google.com/macros/s/AKfycbz8AXxyFoeeq453EjMEtu_A9Cd10DSgVa8Le2YTZ0PvnIdSf43aN_C9d_2wc_hoRWpY/exec";
+      const scriptURL = process.env.NEXT_PUBLIC_GOOGLE_SHEET_SCRIPT_URL;
+      if (!scriptURL) {
+        throw new Error('URL Google Sheets belum dikonfigurasi di file .env.local.');
+      }
+
+      // Bersihkan tanda kutip jika ada
+      const cleanScriptURL = scriptURL.replace(/^['"]|['"]$/g, '').trim();
+
       const formPayload = new FormData();
       formPayload.append('Nama Lengkap', formData.nama_lengkap);
       formPayload.append('Kelas', formData.kelas);
@@ -64,7 +71,13 @@ export default function Pendaftaran() {
       formPayload.append('Divisi 2', formData.divisi_2);
       formPayload.append('Alasan', formData.alasan);
 
-      await fetch(scriptURL, { method: 'POST', body: formPayload });
+      // Gunakan mode no-cors agar browser berhasil mengirim data langsung ke Google Apps Script
+      // tanpa terhalang oleh pembatasan CORS (Cross-Origin Resource Sharing)
+      await fetch(cleanScriptURL, {
+        method: 'POST',
+        body: formPayload,
+        mode: 'no-cors'
+      });
 
       setStatus({ type: 'success', message: 'Pendaftaran berhasil dikirim! Silakan cek email Anda.' });
       setFormData({
@@ -73,7 +86,7 @@ export default function Pendaftaran() {
       });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
-      setStatus({ type: 'error', message: 'Gagal mengirim data. Coba lagi beberapa saat.' });
+      setStatus({ type: 'error', message: err.message || 'Gagal mengirim data. Coba lagi beberapa saat.' });
     } finally {
       setLoading(false);
     }
