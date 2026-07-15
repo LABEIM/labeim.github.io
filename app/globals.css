@@ -1776,11 +1776,39 @@ textarea.form-control {
     }
 
     .hero {
-        padding-top: 90px !important;
+        padding-top: 100px !important;
+        padding-bottom: 50px !important;
+        min-height: auto !important;
     }
 
     .hero h1 {
         font-size: 2.2rem !important;
+    }
+
+    .hero-visual {
+        order: 1 !important;
+        margin-top: 30px;
+    }
+
+    .visual-orbit {
+        width: 260px !important;
+        height: 260px !important;
+        margin: 0 auto;
+    }
+
+    .visual-core {
+        width: 120px !important;
+        height: 120px !important;
+    }
+
+    .visual-core i {
+        font-size: 2rem !important;
+    }
+
+    .visual-node {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 0.8rem !important;
     }
 
     /* Perbaikan Tentang Kami (About Page) di Mobile */
