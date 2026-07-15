@@ -51,7 +51,7 @@ export default function Login() {
 
       <section className="section-padding">
         <div className="container">
-          <div className="registration-form-container glass-panel" style={{ maxWidth: '500px', margin: '0 auto', padding: '40px', borderTop: '3px solid var(--accent-cyan)' }}>
+          <div className="registration-form-container glass-panel" style={{ maxWidth: '500px', margin: '0 auto', borderTop: '3px solid var(--accent-cyan)' }}>
             <div className="registration-header" style={{ textAlign: 'center', marginBottom: '30px' }}>
               <h2>Masuk ke Akun Admin</h2>
             </div>

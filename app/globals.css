@@ -1059,6 +1059,26 @@ h1, h2, h3, h4, h5, h6 {
     gap: 20px;
 }
 
+.registration-form-container {
+    padding: 40px;
+}
+
+.registration-timer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.timer-block {
+    text-align: center;
+    background: var(--bg-card);
+    padding: 10px 15px;
+    border-radius: 8px;
+    min-width: 70px;
+    border: 1px solid var(--border-color);
+}
+
 .form-group label {
     display: block;
     font-size: 0.9rem;
@@ -1374,6 +1394,27 @@ textarea.form-control {
     .form-row {
         grid-template-columns: 1fr;
         gap: 15px;
+    }
+
+    .registration-form-container {
+        padding: 20px 15px;
+    }
+
+    .registration-timer {
+        gap: 8px;
+    }
+
+    .timer-block {
+        padding: 8px 10px;
+        min-width: 60px;
+    }
+
+    .timer-block > div:first-child {
+        font-size: 1.2rem !important;
+    }
+
+    .timer-block > div:last-child {
+        font-size: 0.7rem !important;
     }
 }
 

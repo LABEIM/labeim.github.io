@@ -106,7 +106,7 @@ export default function Pendaftaran() {
 
       <section className="section-padding" id="pendaftaran">
         <div className="container">
-          <div className="registration-form-container glass-panel" style={{ maxWidth: '800px', margin: '0 auto', padding: '40px', borderTop: '3px solid var(--accent-cyan)' }}>
+          <div className="registration-form-container glass-panel" style={{ maxWidth: '800px', margin: '0 auto', borderTop: '3px solid var(--accent-cyan)' }}>
             <div className="registration-header" style={{ textAlign: 'center', marginBottom: '30px' }}>
               <h2 style={{ fontSize: '2rem', marginBottom: '10px' }}>Formulir Pendaftaran Asisten</h2>
               <p style={{ color: 'var(--text-secondary)' }}>Lengkapi formulir di bawah ini dengan data yang valid dan benar.</p>
@@ -124,20 +124,20 @@ export default function Pendaftaran() {
             )}
 
             {!isExpired && (
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '30px' }}>
-                <div style={{ textAlign: 'center', background: 'var(--bg-card)', padding: '10px 15px', borderRadius: '8px', minWidth: '70px', border: '1px solid var(--border-color)' }}>
+              <div className="registration-timer">
+                <div className="timer-block">
                   <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{timeLeft.days}</div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Hari</div>
                 </div>
-                <div style={{ textAlign: 'center', background: 'var(--bg-card)', padding: '10px 15px', borderRadius: '8px', minWidth: '70px', border: '1px solid var(--border-color)' }}>
+                <div className="timer-block">
                   <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{timeLeft.hours}</div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Jam</div>
                 </div>
-                <div style={{ textAlign: 'center', background: 'var(--bg-card)', padding: '10px 15px', borderRadius: '8px', minWidth: '70px', border: '1px solid var(--border-color)' }}>
+                <div className="timer-block">
                   <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{timeLeft.minutes}</div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Menit</div>
                 </div>
-                <div style={{ textAlign: 'center', background: 'var(--bg-card)', padding: '10px 15px', borderRadius: '8px', minWidth: '70px', border: '1px solid var(--border-color)' }}>
+                <div className="timer-block">
                   <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--accent-red)' }}>{timeLeft.seconds}</div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Detik</div>
                 </div>
