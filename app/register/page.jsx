@@ -61,7 +61,7 @@ export default function Register() {
             )}
 
             <form onSubmit={handleRegister}>
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="nama">Nama Lengkap</label>
                   <input type="text" name="nama" className="form-control" id="nama" placeholder="Nama Lengkap" required value={formData.nama} onChange={handleChange} />
@@ -71,7 +71,7 @@ export default function Register() {
                   <input type="text" name="username" className="form-control" id="username" placeholder="Username" required value={formData.username} onChange={handleChange} />
                 </div>
               </div>
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '15px' }}>
+              <div className="form-row" style={{ marginTop: '15px' }}>
                 <div className="form-group">
                   <label htmlFor="nim">NIM</label>
                   <input type="text" name="nim" className="form-control" id="nim" placeholder="Nomor Induk Mahasiswa" required value={formData.nim} onChange={handleChange} />

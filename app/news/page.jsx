@@ -282,7 +282,7 @@ export default function NewsPage() {
               <input type="text" className="form-control modal-input" id="news-input-title" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Masukkan judul berita" />
             </div>
 
-            <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+            <div className="form-row">
               <div className="form-group">
                 <label htmlFor="news-input-category">Kategori</label>
                 <select className="form-control modal-input" id="news-input-category" value={category} onChange={(e) => setCategory(e.target.value)}>

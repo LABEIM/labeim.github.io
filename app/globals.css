@@ -1053,6 +1053,12 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 20px;
 }
 
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
 .form-group label {
     display: block;
     font-size: 0.9rem;
@@ -1363,6 +1369,11 @@ textarea.form-control {
     .footer-bottom {
         flex-direction: column;
         text-align: center;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
 }
 

@@ -157,7 +157,7 @@ export default function Pendaftaran() {
                   <input type="text" className="form-control" id="nama_lengkap" placeholder="Nama lengkap" required value={formData.nama_lengkap} onChange={handleChange} />
                 </div>
 
-                <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '15px' }}>
+                <div className="form-row" style={{ marginTop: '15px' }}>
                   <div className="form-group">
                     <label htmlFor="kelas">Kelas</label>
                     <input type="text" className="form-control" id="kelas" placeholder="Contoh: SI4XXX" required value={formData.kelas} onChange={handleChange} />
@@ -168,7 +168,7 @@ export default function Pendaftaran() {
                   </div>
                 </div>
 
-                <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '15px' }}>
+                <div className="form-row" style={{ marginTop: '15px' }}>
                   <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input type="email" className="form-control" id="email" placeholder="Email" required value={formData.email} onChange={handleChange} />
@@ -179,7 +179,7 @@ export default function Pendaftaran() {
                   </div>
                 </div>
 
-                <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '15px' }}>
+                <div className="form-row" style={{ marginTop: '15px' }}>
                   <div className="form-group">
                     <label htmlFor="divisi_1">Pilihan Divisi 1 (Prioritas Utama)</label>
                     <select className="form-control" id="divisi_1" required value={formData.divisi_1} onChange={handleChange}>

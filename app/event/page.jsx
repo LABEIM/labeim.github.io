@@ -419,7 +419,7 @@ export default function EventsPage() {
               <input type="text" className="form-control modal-input" id="event-input-title" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Masukkan judul kegiatan" />
             </div>
 
-            <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+            <div className="form-row">
               <div className="form-group">
                 <label htmlFor="event-input-category">Kategori</label>
                 <input
@@ -447,7 +447,7 @@ export default function EventsPage() {
               <input type="date" className="form-control modal-input" id="event-input-date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} />
             </div>
 
-            <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '20px' }}>
+            <div className="form-row" style={{ marginBottom: '20px' }}>
               <div className="form-group" style={{ margin: 0 }}>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', height: '21px' }}>
                   <label htmlFor="event-input-start-time" style={{ margin: 0, whiteSpace: 'nowrap' }}>Jam Mulai</label>
