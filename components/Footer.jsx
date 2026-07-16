@@ -42,9 +42,6 @@ export default function Footer() {
               <a href="https://www.instagram.com/eimresearchlab/" target="_blank" rel="noopener noreferrer" className="footer-social-btn" title="Instagram @eimresearchlab">
                 <i className="fa-brands fa-instagram"></i>
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="footer-social-btn" title="YouTube Channel">
-                <i className="fa-brands fa-youtube"></i>
-              </a>
             </div>
           </div>
         </div>

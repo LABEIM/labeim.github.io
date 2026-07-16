@@ -63,8 +63,8 @@ function StructureContent() {
     }
   };
 
-  const filteredMembers = filter === 'all' 
-    ? initialMembers 
+  const filteredMembers = filter === 'all'
+    ? initialMembers
     : initialMembers.filter(m => m.division.toLowerCase() === filter.toLowerCase());
 
 
@@ -97,14 +97,14 @@ function StructureContent() {
                 <div className="member-avatar-wrapper">
                   <div className="member-avatar" style={member.image ? { background: 'transparent' } : {}}>
                     {member.image ? (
-                      <img 
-                        src={member.image} 
-                        alt={member.name} 
-                        style={{ 
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        style={{
                           width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit', display: 'block',
                           transform: member.scale ? `scale(${member.scale})` : 'none',
                           transformOrigin: member.position || 'center'
-                        }} 
+                        }}
                       />
                     ) : (
                       <i className="fa-solid fa-user" style={{ fontSize: '2.5rem', opacity: 0.5 }}></i>
