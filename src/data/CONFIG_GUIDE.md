@@ -80,3 +80,76 @@ This file configures the recruitment registration landing page.
   "closedMessage": "Sorry, the assistant registration form is currently closed."
 }
 ```
+
+---
+
+## 4. News Articles (`src/content/news/`)
+News articles are stored as Markdown (`.md`) files in `src/content/news/`.
+
+### Fields Explanation
+* **`title`** (String): The title of the news article.
+* **`category`** (String): The category tag (e.g., `"Beasiswa"`, `"Pengumuman"`, `"Riset"`).
+* **`author`** (String): The publisher or author name (e.g., `"EIM Research Lab"`, `"UK Government"`).
+* **`news_date`** (String): Date of publication in `YYYY-MM-DD` format.
+* **`image`** (Array of Strings): Optional image URLs or paths to display as featured images.
+
+### News Template
+A helper template is located at [src/content/news/_template.md](file:///home/arukast/Projects/website-eim/src/content/news/_template.md).
+
+```markdown
+---
+title: "News Title"
+category: "Category Name"
+author: "Author Name"
+news_date: "YYYY-MM-DD"
+image:
+  - "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=1200"
+---
+Write the content of the news article here in Markdown format.
+```
+
+---
+
+## 5. Laboratory Events (`src/content/events/`)
+Events are stored as Markdown (`.md`) files in `src/content/events/`.
+
+### Fields Explanation
+* **`title`** (String): The title of the event.
+* **`category`** (String): The type/category of the event (e.g., `"Company Visit"`, `"Workshop"`, `"Webinar"`).
+* **`status`** (String): Must be one of `"upcoming"`, `"ongoing"`, or `"completed"`.
+* **`event_date`** (String): Date of the event in `YYYY-MM-DD` format.
+* **`description`** (String): A short summary of the event shown in lists.
+* **`link`** (String, Optional): Registration or external link.
+* **`image`** (Array of Strings, Optional): Optional image URLs/paths.
+* **`icon`** (String, Optional): FontAwesome icon class name (e.g., `"fa-building-columns"`, `"fa-solid fa-calendar-days"`).
+* **`organizer`** (String, Optional): Name of the organizer (defaults to EIM).
+* **`benefits`** (Array of Strings, Optional): List of benefits for participants.
+* **`requirements`** (Array of Strings, Optional): List of requirements/criteria for participants.
+* **`show_register`** (Boolean, Optional): Whether to display a register button (defaults to `true`).
+
+### Event Template
+A helper template is located at [src/content/events/_template.md](file:///home/arukast/Projects/website-eim/src/content/events/_template.md).
+
+```markdown
+---
+title: "Event Title"
+category: "Category Name"
+status: "upcoming"
+event_date: "YYYY-MM-DD"
+description: "A short description of the event that will be shown in lists."
+link: "https://example.com/optional-registration-link"
+image:
+  - "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&q=80&w=600"
+icon: "fa-solid fa-calendar-days"
+organizer: "EIM Research Lab"
+benefits:
+  - "Benefit 1"
+  - "Benefit 2"
+requirements:
+  - "Requirement 1"
+  - "Requirement 2"
+show_register: true
+---
+Write the main event details, schedule, or extra information here in Markdown format.
+```
+
