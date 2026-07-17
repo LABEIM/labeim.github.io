@@ -25,7 +25,15 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
-    <link rel="icon" type="image/avif" href={siteData.favicon} />
+    {/* Dynamic favicon type helper */}
+    {(() => {
+      const fav = siteData.favicon;
+      let type = 'image/x-icon';
+      if (fav.endsWith('.png')) type = 'image/png';
+      else if (fav.endsWith('.svg')) type = 'image/svg+xml';
+      else if (fav.endsWith('.avif')) type = 'image/avif';
+      return <link rel="icon" type={type} href={fav} />;
+    })()}
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     {/* Modern font */}
