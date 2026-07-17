@@ -5,7 +5,7 @@ import Layout from '../../layouts/Layout.astro';
 export async function getStaticPaths() {
   const news = await getCollection('news');
   return news.map((item) => ({
-    params: { id: item.slug },
+    params: { id: item.id },
     props: { item },
   }));
 }
@@ -109,12 +109,12 @@ const images = item.data.image || [];
     </section>
 
     {/* Responsive media query */}
-    <style dangerouslySetInnerHTML={{__html: `
+    <style>
       @media (max-width: 991px) {
         .responsive-grid {
           grid-template-columns: 1fr !important;
         }
       }
-    `}} />
+    </style>
   </div>
 </Layout>

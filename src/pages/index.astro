@@ -2,11 +2,6 @@
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
-// Fetch and sort events
-const allEvents = await getCollection('events');
-const latestEvents = allEvents
-  .sort((a, b) => new Date(b.data.event_date).getTime() - new Date(a.data.event_date).getTime())
-  .slice(0, 3);
 
 // Fetch and sort news
 const allNews = await getCollection('news');
