@@ -33,6 +33,4 @@ jobs:
       - name: Run Lighthouse audit
         uses: treosh/lighthouse-ci-action@v12
         with:
-          staticDistDir: './dist'
-          uploadArtifacts: true
-          temporaryPublicStorage: true
+          configPath: './.lighthouserc.json'
