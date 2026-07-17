@@ -1,4 +1,6 @@
 ---
+import siteData from '../data/site.json';
+
 const pathname = Astro.url.pathname;
 const cleanPath = pathname.endsWith('/') && pathname.length > 1 ? pathname.slice(0, -1) : pathname;
 
@@ -23,11 +25,11 @@ const isActive = (href: string) => {
   <div class="container">
     <a href="/" class="logo-container">
       <div class="logo-icon">
-        <img src="/image/eim/logo_EIM.avif" alt="EIM Logo" />
+        <img src={siteData.logo} alt={`${siteData.name} Logo`} />
       </div>
       <div class="logo-text">
-        <span class="text-gradient-dual">EIM</span>
-        <span class="logo-sub">Research Lab</span>
+        <span class="text-gradient-dual">{siteData.name}</span>
+        <span class="logo-sub">{siteData.subName}</span>
       </div>
     </a>
 

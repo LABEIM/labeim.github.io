@@ -153,3 +153,47 @@ show_register: true
 Write the main event details, schedule, or extra information here in Markdown format.
 ```
 
+---
+
+## 6. Global Site Settings (`src/data/site.json`)
+This file configures the global branding, tab information, and social links of the laboratory website.
+
+### Fields Explanation
+* **`name`** (String): Short name of the lab (e.g. `"EIM"`). Used in the Navbar logo and title.
+* **`subName`** (String): Subtitle suffix for the logo (e.g. `"Research Lab"`).
+* **`fullName`** (String): Complete formal name (e.g. `"Enterprise Infrastructure Management Research Laboratory"`). Used in copyright text and about summaries.
+* **`defaultTitle`** (String): The default window/tab title for pages that do not override it.
+* **`defaultDescription`** (String): Fallback meta description for search engines.
+* **`defaultKeywords`** (String): Fallback meta keywords list for SEO.
+* **`favicon`** (String): Path to the favicon/tab icon.
+* **`logo`** (String): Path to the logo image.
+* **`contact`** (Object):
+  * **`location`** (String): Room / building location.
+  * **`university`** (String): Institution name and address.
+  * **`email`** (String): Lab contact email address.
+* **`socials`** (Object):
+  * **`instagram`** (String): Full URL to the lab's Instagram profile.
+
+### Site Configuration Template
+```json
+{
+  "name": "EIM",
+  "subName": "Research Lab",
+  "fullName": "Enterprise Infrastructure Management Research Laboratory",
+  "defaultTitle": "EIM Research Lab - Enterprise Infrastructure Management",
+  "defaultDescription": "Website Resmi Enterprise Infrastructure Management (EIM) Research Lab Telkom University.",
+  "defaultKeywords": "EIM, EIM Research Lab, Telkom University, Enterprise Infrastructure Management, Laboratorium Jaringan, Cloud Computing, Riset Jaringan",
+  "favicon": "/image/eim/logo_EIM.avif",
+  "logo": "/image/eim/logo_EIM.avif",
+  "contact": {
+    "location": "TULT Building 8th Floor, Room TULT.08.09",
+    "university": "Telkom University, Bandung, Indonesia",
+    "email": "eimlab@telkomuniversity.ac.id"
+  },
+  "socials": {
+    "instagram": "https://www.instagram.com/eimresearchlab/"
+  }
+}
+```
+
+

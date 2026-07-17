@@ -2,6 +2,7 @@
 import '../styles/globals.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import siteData from '../data/site.json';
 
 interface Props {
   title?: string;
@@ -10,9 +11,9 @@ interface Props {
 }
 
 const {
-  title = 'EIM Research Lab - Enterprise Infrastructure Management',
-  description = 'Website Resmi Enterprise Infrastructure Management (EIM) Research Lab Telkom University.',
-  keywords = 'EIM, EIM Research Lab, Telkom University, Enterprise Infrastructure Management, Laboratorium Jaringan, Cloud Computing, Riset Jaringan',
+  title = siteData.defaultTitle,
+  description = siteData.defaultDescription,
+  keywords = siteData.defaultKeywords,
 } = Astro.props;
 ---
 
@@ -24,6 +25,7 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
+    <link rel="icon" type="image/avif" href={siteData.favicon} />
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     {/* Modern font */}
