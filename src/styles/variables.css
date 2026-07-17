@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* --- DESIGN SYSTEM TOKENS --- */
+:root {
+    /* Color Palette */
+    --bg-dark: #ffffff;
+    --bg-dark-secondary: #f8f9fa;
+    --bg-card: rgba(14, 85, 95, 0.03);
+    --bg-card-hover: rgba(14, 85, 95, 0.06);
+    
+    --border-color: rgba(14, 85, 95, 0.08);
+    --border-color-hover: rgba(14, 85, 95, 0.15);
+
+    /* EIM Brand Guidelines Colors */
+    --brand-dark-azure: #0E555F;
+    --brand-dark-azure-rgb: 14, 85, 95;
+    
+    --brand-cyan: #11B4BD;
+    --brand-cyan-rgb: 17, 180, 189;
+    
+    --brand-cyan-light: #1AACAD;
+    --brand-cyan-light-rgb: 26, 172, 173;
+    
+    --brand-gray-azure: #4E8A92;
+    --brand-gray-azure-rgb: 78, 138, 146;
+
+    /* Theme Accents (Mapped to Brand Colors) */
+    --accent-red: var(--brand-dark-azure);
+    --accent-red-rgb: var(--brand-dark-azure-rgb);
+    --accent-red-hover: var(--brand-cyan-light);
+    --accent-red-gradient: linear-gradient(135deg, var(--brand-dark-azure) 0%, #072a2f 100%);
+    
+    --accent-cyan: var(--brand-cyan);
+    --accent-cyan-rgb: var(--brand-cyan-rgb);
+    --accent-cyan-hover: var(--brand-cyan-light);
+    --accent-cyan-gradient: linear-gradient(135deg, var(--brand-cyan) 0%, var(--brand-cyan-light) 100%);
+    
+    /* Text Colors */
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    
+    /* Typography */
+    --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-body: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    
+    /* Layout & Spacing */
+    --max-width: 1200px;
+    --border-radius-sm: 8px;
+    --border-radius-md: 16px;
+    --border-radius-lg: 24px;
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease-out;
+    --transition-normal: 0.25s ease-out;
+    --transition-slow: 0.4s ease-out;
+
+    /* Shadows & Glows */
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --glow-cyan: 0 0 20px rgba(var(--accent-cyan-rgb), 0.15);
+    --glow-red: 0 0 20px rgba(var(--accent-red-rgb), 0.15);
+    --glow-cyan-intense: 0 0 30px rgba(var(--accent-cyan-rgb), 0.3);
+    --glow-red-intense: 0 0 30px rgba(var(--accent-red-rgb), 0.3);
+}

@@ -1,0 +1,70 @@
+/* --- ABOUT SECTION --- */
+.focus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.focus-card {
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.focus-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-red) 0%, var(--accent-cyan) 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: var(--transition-normal);
+}
+
+.focus-card:hover::before {
+    transform: scaleX(1);
+}
+
+.focus-icon {
+    font-size: 2.5rem;
+    margin-bottom: 24px;
+    display: inline-block;
+    color: var(--accent-cyan);
+}
+
+.focus-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+}
+
+.focus-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* About Section Layouts */
+.about-overview-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-visionmission-grid {
+    border-top: 3px solid var(--accent-red);
+    padding: 40px;
+}
+
+.about-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    max-height: 280px;
+    object-fit: contain;
+    padding: 50px;
+    background: white;
+}
