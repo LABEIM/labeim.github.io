@@ -6,7 +6,7 @@
 Before writing any code, the agent must complete these steps:
 1. Confirm the working directory using `pwd`.
 2. Read `claude-progress.md` for the latest verified state and the next required step (if present).
-3. Check `src/data/profile.json` and the content collection files in `src/content/projects/` to understand current configuration states.
+3. Check content collection files in `src/content/events/` and `src/content/news/` to understand current configuration states.
 4. Review recent repository history by checking the last 5 commits using `git log --oneline -5`.
 5. Run the required build verification using `npm run build` or `npx astro check` before starting new work. If baseline verification fails, fix that issue first before stacking new feature work on top of a broken starting state.
 
@@ -18,8 +18,8 @@ Before writing any code, the agent must complete these steps:
 5. Prefer durable repository artifacts over transient chat summaries.
 
 ### 1.3 Required Artifacts
-1. `src/data/profile.json`: The source of truth for bio information, virtual terminal listings, and stats.
-2. `src/content/projects/`: Case study files defining individual portfolio project items.
+1. `src/content.config.ts`: Defines Zod schemas and loaders for static content collections.
+2. `src/content/`: Contains Markdown entries representing news articles and laboratory events.
 3. `package.json`: Main repository dependencies, runtime constraints, and script targets.
 
 ### 1.4 Definition Of Done
@@ -27,7 +27,7 @@ A feature achieves the status of completed only when all of the following condit
 1. The target behavior is fully implemented.
 2. The site compiles successfully locally using `npm run build`.
 3. Astro diagnostics run successfully using `npx astro check` with zero errors.
-4. If testing dynamic logic (like the virtual terminal or API forms), manually verify correct DOM rendering and network/simulation fallbacks.
+4. If testing dynamic logic (like client-side forms), manually verify correct DOM rendering and network/simulation fallbacks.
 
 ### 1.5 End Of Session Workflow
 Before ending a session, the agent must perform these tasks:
@@ -46,13 +46,17 @@ Before ending a session, the agent must perform these tasks:
 - **Runtime & Build Tools**: Node.js v22, npm.
 
 ### 2.2 Directory Layout & Component Roles
-
+- `src/content.config.ts`: Collection loaders and configuration schema.
+- `src/content/`: Directory containing static Markdown files.
+- `src/layouts/Layout.astro`: Base wrapper page layout.
+- `src/components/`: Reusable Astro components (Navbar, Footer).
+- `src/pages/`: File-system routing directories.
 
 ### 2.3 Role-Based Access Control & Scoping (If Applicable)
-- **Not Applicable**: The portfolio is a fully public-facing static application. There are no users, authentication schemas, session tokens, or multi-tenant database roles.
+- **Not Applicable**: The EIM Research Lab website is a fully public-facing static application. There are no users, authentication schemas, session tokens, or active database connections.
 
 ### 2.4 Service & Business Logic Layer
-
+- **Pendaftaran Form**: Posts payload client-side to Google Apps Script.
 
 ---
 
@@ -63,10 +67,10 @@ Before ending a session, the agent must perform these tasks:
 2. Secrets management: Do not commit active variables or access keys. Keep `.env` and `creds.json` files out of source control using `.gitignore`.
 
 ### 3.2 Security Rules
-1. XSS: Escape dynamic terminal parameters and form inputs. Utilize Astro/React's standard escaping or client-side sanitization.
+1. XSS: Escape dynamic inputs and query params. Utilize Astro's standard HTML escaping.
 
 ### 3.3 Database Status & State Codes (If Applicable)
-
+- **Not Applicable**: Moved from MySQL database to static markdown collections.
 
 ---
 
