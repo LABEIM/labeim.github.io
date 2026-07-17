@@ -19,17 +19,17 @@ const latestNews = allNews
             <span></span> Enterprise Infrastructure Management Lab
           </div>
           <h1>
-            Membangun <span class="text-gradient-red">Infrastruktur</span> Digital Masa Depan dengan <span class="text-gradient-cyan">Riset & AI</span>
+            Building <span class="text-gradient-red">Digital Infrastructure</span> of the Future with <span class="text-gradient-cyan">Research & AI</span>
           </h1>
           <p class="hero-desc">
-            Kami melakukan riset, pengkajian mendalam, dan pelatihan di bidang teknologi jaringan enterprise, optimalisasi data center, cloud computing, serta otomasi infrastruktur.
+            We conduct research, in-depth studies, and training in enterprise network technology, data center optimization, cloud computing, and infrastructure automation.
           </p>
           <div class="hero-actions">
-            <a href="/pendaftaran" class="btn btn-primary" style="box-shadow: var(--glow-cyan-intense); transform: scale(1.05);">
-              Daftar Asisten Sekarang <i class="fa-solid fa-user-plus"></i>
+            <a href="/registration" class="btn btn-primary" style="box-shadow: var(--glow-cyan-intense); transform: scale(1.05);">
+              Register as Assistant Now <i class="fa-solid fa-user-plus"></i>
             </a>
             <a href="/structure" class="btn btn-secondary">
-              Lihat Struktur Asisten <i class="fa-solid fa-users"></i>
+              View Assistant Structure <i class="fa-solid fa-users"></i>
             </a>
           </div>
         </div>
@@ -54,11 +54,11 @@ const latestNews = allNews
         </div>
       </div>
 
-      {/* Fokus Riset & Laboratorium */}
+      {/* Research Focus */}
       <div style="margin-top: 100px;">
         <div class="section-title">
-          <h2>Fokus Riset & Laboratorium</h2>
-          <p>Kami berfokus pada pilar-pilar penting teknologi infrastruktur teknologi informasi skala besar.</p>
+          <h2>Research Focus & Laboratory</h2>
+          <p>We focus on the essential pillars of large-scale information technology infrastructure.</p>
         </div>
         <div class="focus-grid">
           <div class="focus-card glass-panel">
@@ -66,59 +66,59 @@ const latestNews = allNews
               <i class="fa-solid fa-network-wired"></i>
             </div>
             <h3>Network Optimization</h3>
-            <p>Mengkaji efisiensi rute, protokol switching & routing, simulasi beban trafik jaringan, dan interkoneksi regional berskala enterprise.</p>
+            <p>Assessing route efficiency, routing & switching protocols, network traffic load simulation, and enterprise-scale regional interconnection.</p>
           </div>
           <div class="focus-card glass-panel">
             <div class="focus-icon">
               <i class="fa-solid fa-cloud-arrow-up"></i>
             </div>
             <h3>Cloud Infrastructure</h3>
-            <p>Implementasi private & public cloud, containerization (Docker, Kubernetes), network virtualization, dan integrasi hybrid data center.</p>
+            <p>Implementation of private & public cloud, containerization (Docker, Kubernetes), network virtualization, and hybrid data center integration.</p>
           </div>
           <div class="focus-card glass-panel">
             <div class="focus-icon">
               <i class="fa-solid fa-robot"></i>
             </div>
             <h3>Network Automation & AI</h3>
-            <p>Otomatisasi konfigurasi switch/router menggunakan Ansible/Python, monitoring performa jaringan cerdas berbasis kecerdasan buatan.</p>
+            <p>Switch/router configuration automation using Ansible/Python, and intelligent network performance monitoring based on artificial intelligence.</p>
           </div>
         </div>
       </div>
 
-      {/* Divisi Lab EIM secara singkat */}
+      {/* Lab Divisions */}
       <div style="margin-top: 100px;">
         <div class="section-title">
-          <h2>Divisi Laboratorium EIM</h2>
-          <p>Laboratorium EIM terdiri dari 6 divisi utama yang saling berkolaborasi dalam riset dan operasional secara terpadu.</p>
+          <h2>EIM Laboratory Divisions</h2>
+          <p>EIM Laboratory consists of 6 main divisions collaborating in integrated research and operations.</p>
         </div>
         <div class="divisions-brief-grid">
-          {['INTI', 'RISET', 'PKU', 'LOMBA', 'MEDHUM', 'PENGMAS'].map(div => (
+          {['CORE', 'RESEARCH', 'PKU', 'COMPETITION', 'MEDIA', 'COMMUNITY'].map(div => (
             <a href={`/structure?div=${div.toLowerCase()}`} class="div-brief-card glass-panel" style="display: block; cursor: pointer;">
               <h4>{div}</h4>
               <p>
-                {div === 'INTI' && 'Koordinator, Sekretaris, dan Bendahara yang mengelola operasional internal lab.'}
-                {div === 'RISET' && 'Fokus pada penelitian infrastruktur, AI, dan publikasi ilmiah.'}
-                {div === 'PKU' && 'Pengembangan Kapasitas Utama melalui pelatihan Cisco dan networking.'}
-                {div === 'LOMBA' && 'Mempersiapkan tim kompetitif untuk ajang kejuaraan IT & Jaringan nasional.'}
-                {div === 'MEDHUM' && 'Media dan Hubungan Masyarakat untuk branding dan penyebaran informasi.'}
-                {div === 'PENGMAS' && 'Pengabdian Masyarakat yang selalu dilakukan secara berkala untuk membantu masyarakat.'}
+                {div === 'CORE' && 'Coordinator, Secretary, and Treasurer managing internal lab operations.'}
+                {div === 'RESEARCH' && 'Focuses on infrastructure research, AI, and scientific publications.'}
+                {div === 'PKU' && 'Primary Capacity Development through Cisco training and networking.'}
+                {div === 'COMPETITION' && 'Prepares competitive teams for national IT & networking championships.'}
+                {div === 'MEDIA' && 'Media and Public Relations for branding and information dissemination.'}
+                {div === 'COMMUNITY' && 'Community Service conducted periodically to help the society.'}
               </p>
             </a>
           ))}
         </div>
       </div>
 
-      {/* Berita Terakhir */}
+      {/* Latest News */}
       <div style="margin-top: 100px; margin-bottom: 20px;">
         <div class="section-title">
-          <h2>Berita Terakhir</h2>
-          <p>Kabar terbaru dan rilis artikel terkini dari EIM Research Lab.</p>
+          <h2>Latest News</h2>
+          <p>Latest news and article releases from EIM Research Lab.</p>
         </div>
         <div class="news-grid">
           {latestNews.length === 0 ? (
             <div class="news-empty-state glass-panel" style="grid-column: 1 / -1;">
               <i class="fa-regular fa-newspaper"></i>
-              <p style="color: var(--text-secondary);">Belum ada berita terbaru.</p>
+              <p style="color: var(--text-secondary);">No latest news available.</p>
             </div>
           ) : (
             latestNews.map(news => {
@@ -133,12 +133,12 @@ const latestNews = allNews
                   </div>
                   <div class="news-content" style="padding: 20px;">
                     <div class="news-date" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 10px;">
-                      <i class="fa-regular fa-calendar"></i> {new Date(news.data.news_date).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+                      <i class="fa-regular fa-calendar"></i> {new Date(news.data.news_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </div>
                     <h3 style="margin-bottom: 10px; font-size: 1.2rem; line-height: 1.4;">{news.data.title}</h3>
                     <p class="news-desc" style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{news.body}</p>
                     <div class="news-footer" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-secondary);">
-                      <span class="news-author">Oleh: {news.data.author}</span>
+                      <span class="news-author">By: {news.data.author}</span>
                     </div>
                   </div>
                 </div>
@@ -148,7 +148,7 @@ const latestNews = allNews
         </div>
         <div style="text-align: center; margin-top: 40px;">
           <a href="/news" class="btn btn-secondary">
-            Lihat Semua Berita <i class="fa-solid fa-arrow-right"></i>
+            View All News <i class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
       </div>

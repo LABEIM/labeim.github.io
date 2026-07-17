@@ -740,14 +740,13 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
 }
 
-/* Specific Border Styles for Divisions */
-.member-card.div-inti { border-color: rgba(var(--accent-red-rgb), 0.3); }
-.member-card.div-inti .member-role { color: var(--accent-red-hover); }
-.member-card.div-riset { border-color: rgba(var(--accent-cyan-rgb), 0.3); }
+.member-card.div-core { border-color: rgba(var(--accent-red-rgb), 0.3); }
+.member-card.div-core .member-role { color: var(--accent-red-hover); }
+.member-card.div-research { border-color: rgba(var(--accent-cyan-rgb), 0.3); }
 .member-card.div-pku { border-color: rgba(79, 172, 254, 0.3); }
-.member-card.div-lomba { border-color: rgba(255, 186, 0, 0.3); }
-.member-card.div-medhum { border-color: rgba(163, 7, 186, 0.3); }
-.member-card.div-pengmas { border-color: rgba(39, 174, 96, 0.3); }
+.member-card.div-competition { border-color: rgba(255, 186, 0, 0.3); }
+.member-card.div-media { border-color: rgba(163, 7, 186, 0.3); }
+.member-card.div-community { border-color: rgba(39, 174, 96, 0.3); }
 
 /* --- BERITA (NEWS) SECTION --- */
 .news-header {
