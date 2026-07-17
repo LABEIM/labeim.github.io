@@ -13,11 +13,18 @@ Official website of the Enterprise Infrastructure Management (EIM) Research Lab,
 
 - `src/content.config.ts`: Defines Zod schemas and loaders for static markdown content collections (`news`, `events`).
 - `src/content/`: Contains static Markdown files representing news articles and laboratory events.
+- `src/data/`: Contains JSON files (`site.json`, `members.json`, `divisions.json`, `registration.json`) for easy website-wide metadata and team configuration, and `CONFIG_GUIDE.md`.
 - `src/pages/`: File-system routing directories for Astro.
 - `src/layouts/`: Base wrapper page layout (`Layout.astro`).
 - `src/components/`: Reusable components such as `Navbar.astro` and `Footer.astro`.
 - `src/styles/`: Global stylesheet (`globals.css`).
 - `public/`: Static folder hosting images, logos, and assistant profiles.
+
+## Website Configuration
+
+The website's metadata, laboratory divisions, active members, and registration settings can be easily customized by editing the JSON files in `src/data/`.
+
+For detailed instructions and schema templates, refer to the [Configuration Guide](src/data/CONFIG_GUIDE.md).
 
 ## Local Development
 
