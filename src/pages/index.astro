@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import divisions from '../data/divisions.json';
 
 
 // Fetch and sort news
@@ -92,17 +93,10 @@ const latestNews = allNews
           <p>EIM Laboratory consists of 6 main divisions collaborating in integrated research and operations.</p>
         </div>
         <div class="divisions-brief-grid">
-          {['CORE', 'RESEARCH', 'PKU', 'COMPETITION', 'MEDIA', 'COMMUNITY'].map(div => (
-            <a href={`/structure?div=${div.toLowerCase()}`} class="div-brief-card glass-panel" style="display: block; cursor: pointer;">
-              <h4>{div}</h4>
-              <p>
-                {div === 'CORE' && 'Coordinator, Secretary, and Treasurer managing internal lab operations.'}
-                {div === 'RESEARCH' && 'Focuses on infrastructure research, AI, and scientific publications.'}
-                {div === 'PKU' && 'Primary Capacity Development through Cisco training and networking.'}
-                {div === 'COMPETITION' && 'Prepares competitive teams for national IT & networking championships.'}
-                {div === 'MEDIA' && 'Media and Public Relations for branding and information dissemination.'}
-                {div === 'COMMUNITY' && 'Community Service conducted periodically to help the society.'}
-              </p>
+          {divisions.map(div => (
+            <a href={`/structure?div=${div.id}`} class="div-brief-card glass-panel" style="display: block; cursor: pointer;">
+              <h4>{div.displayName}</h4>
+              <p>{div.description}</p>
             </a>
           ))}
         </div>

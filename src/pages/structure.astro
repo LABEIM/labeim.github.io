@@ -1,43 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import initialMembers from '../data/members.json';
+import divisions from '../data/divisions.json';
 
-const initialMembers = [
-  // CORE Division
-  { id: 1, name: "Ferdyansyah Adi Saputra", role: "EIM Lab Coordinator", division: "core", image: "/image/division/inti/CORE_Assistant-Coordinator_DAYY_Ferdiansyah-Adi-Saputra_00.avif", scale: "3", position: "center 32%" },
-  { id: 2, name: "Raffi Raditya Sofwan", role: "Secretary", division: "core", image: "/image/division/inti/CORE_1st-Secretary_WOKY_Raffi-Raditya-Sofwan_00.avif", scale: "2.8", position: "55% 35%" },
-  { id: 3, name: "Kania Shafa", role: "Treasurer", division: "core", image: "/image/division/inti/CORE_1st-Treasurer_KSAZ_Kania-Shafa-Az-Zahra_00.avif", scale: "2.7", position: "45% 52%" },
-
-  // RESEARCH Division
-  { id: 4, name: "Ardy Maulana Nayottama Nugroho", role: "Research Coordinator", division: "research", image: "/image/division/research/RESEARCH_Division-Coordinator_NYTM_Ardy-Maulana-Nayottama-Nugroho_01.avif", scale: "2.3", position: "53% 15%" },
-  { id: 5, name: "Tb. Alta Ulil Abshor", role: "Staff", division: "research", image: "/image/division/research/RESEARCH_Member_ALTA_Tb.-Alta-Ulil-Abshor_00.avif", scale: "3", position: "49% 35%" },
-  { id: 6, name: "Nayla Aulia Rusyda", role: "Staff", division: "research", image: "/image/division/research/RESEARCH_Member_NAYL_Nayla-Aulia-Rusyda_00.avif", scale: "3", position: "52% 43%" },
-  { id: 7, name: "Hana Humaira", role: "Staff", division: "research", image: "/image/division/research/RESEARCH_Member_NARA_Hana-Humaira_00.avif", scale: "3", position: "center 40%" },
-  { id: 8, name: "Dara Saifa Mahiroh", role: "Staff", division: "research", image: "/image/division/research/RESEARCH_Member_DSFA_Dara-Saifa-Mahiroh_00.avif", scale: "2.5", position: "48% 34%" },
-
-  // PKU Division
-  { id: 9, name: "Winsenlaus Alfero Krisna Ivander Lael", role: "PKU Coordinator", division: "pku", image: "/image/division/pku/PKU_Division-Coordinator_VAND_Winsenlaus-Alfero-Krisna-Ivander-Lael_00.avif", scale: "2.8", position: "50% 13%" },
-  { id: 10, name: "Fakhri Muhammad Habibi", role: "Staff", division: "pku", image: "/image/division/pku/PKU_Member_KANG_Fakhri-Muhammad-Habibi_00.avif", scale: "2.8", position: "50% 15%" },
-  { id: 11, name: "Faiz Dhya Muhamad Rahmantyo", role: "Staff", division: "pku", image: "/image/division/pku/PKU_Member_FADH_Faiz-Dhya-Muhamad-Rahmantyo_00.avif", scale: "2.8", position: "50% 15%" },
-
-  // COMPETITION Division
-  { id: 12, name: "Akchmad Reza Zandri", role: "Competition Coordinator", division: "competition", image: "/image/division/competition/COMPETITION_Division-Coordinator_JAAA_Akchmad-Reza-Zandri_00.avif", scale: "2.8", position: "49% 35%" },
-  { id: 13, name: "Ganda Dwiyana", role: "Staff", division: "competition", image: "/image/division/competition/COMPETITION_Member_NDAA_Ganda-Dwiyana_00.avif", scale: "2.8", position: "50% 31%" },
-  { id: 14, name: "Frixtho Alex Credorius Latumahina", role: "Staff", division: "competition", image: "/image/division/competition/COMPETITION_Member_FACL_Frixtho-Alex-Credorius-Latumahina_00.avif", scale: "2.8", position: "48% 25%" },
-  { id: 15, name: "Muhammad Fizry Alifta", role: "Staff", division: "competition", image: "/image/division/competition/COMPETITION_Member_FZRY_Muhammad-Fizry-Alifta_00.avif", scale: "2.8", position: "50% 36%" },
-
-  // MEDIA Division
-  { id: 17, name: "Aura Haya Azka", role: "Media & PR Coordinator", division: "media", image: "/image/division/prc/PRC_Division-Coordinator_AUZA_Aura-Haya-Azka_00.avif", scale: "2.2", position: "50% 40%" },
-  { id: 18, name: "Firman Zuhdi Affandi", role: "Staff", division: "media", image: "/image/division/prc/PRC_Member_FIZI_Firman-Zuhdi-Affandi_00.avif", scale: "2.8", position: "50% 33%" },
-  { id: 19, name: "Affan Maulana Raffi", role: "Staff", division: "media", image: "/image/division/prc/PRC_Member_AFMR_Affan-Maulana-Raffi_00.avif", scale: "2.4", position: "48% 19%" },
-  { id: 20, name: "Wildan Zaaqi", role: "Staff", division: "media", image: "/image/division/prc/PRC_Member_WILD_Wildan-Zaaqi_00.avif", scale: "2.4", position: "51% 45%" },
-
-  // COMMUNITY Division
-  { id: 21, name: "Bagas Haris Saputro", role: "Community Service Coordinator", division: "community", image: "/image/division/care/CARE_Division-Coordinator_ASAP_Bagas-Haris-Saputro_00.avif", scale: "3", position: "50% 20%" },
-  { id: 22, name: "Levi Soraya", role: "Staff", division: "community", image: "/image/division/care/CARE_Member_RYLA_Levi-Soraya_00.avif", scale: "2", position: "50% 18%" },
-  { id: 23, name: "Salman Alfarisy", role: "Staff", division: "community", image: "/image/division/care/CARE_Member_SLMN_Salman-Alfarisy_00.avif", scale: "2.3", position: "50% 43%" },
-  { id: 24, name: "Deidanisa Aulia Pradina Kya", role: "Staff", division: "community", image: "/image/division/care/CARE_Member_KAYS_Deidanisa-Aulia-Pradina-Kya_00.avif", scale: "3.3", position: "50% 45%" },
-  { id: 25, name: "Raffi Akbar Firdaus", role: "Staff", division: "community", image: "/image/division/care/CARE_Member_AKBR_Raffi-Akbar-Firdaus_00.avif", scale: "2.4", position: "45% 51%" },
-];
+const divisionMap = new Map(divisions.map(d => [d.id, d]));
 ---
 
 <Layout title="Organizational Structure - EIM Research Lab">
@@ -52,54 +18,51 @@ const initialMembers = [
 
   <section class="section-padding" id="structure">
     <div class="container">
-      <div class="filter-container" id="filter-tabs">
+      <div class="filter-container" id="filter-tabs" data-divisions={JSON.stringify(divisions)}>
         <button class="filter-tab active" data-filter="all">All Divisions</button>
-        <button class="filter-tab" data-filter="core">Core</button>
-        <button class="filter-tab" data-filter="research">Research</button>
-        <button class="filter-tab" data-filter="pku">PKU</button>
-        <button class="filter-tab" data-filter="competition">Competition</button>
-        <button class="filter-tab" data-filter="media">Media & PR</button>
-        <button class="filter-tab" data-filter="community">Community Service</button>
+        {divisions.map(div => (
+          <button class="filter-tab" data-filter={div.id}>{div.name}</button>
+        ))}
       </div>
 
       <div class="member-grid" id="member-grid">
-        {initialMembers.map((member, idx) => (
-          <div 
-            class={`member-card glass-panel member-card-item div-${member.division}`} 
-            data-division={member.division}
-            style={`animation-delay: ${idx * 0.04}s`}
-          >
-            <div class="member-avatar-wrapper">
-              <div class="member-avatar" style={member.image ? "background: transparent;" : ""}>
-                {member.image ? (
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    style={{
-                      width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit', display: 'block',
-                      transform: member.scale ? `scale(${member.scale})` : 'none',
-                      transformOrigin: member.position || 'center'
-                    }}
-                  />
-                ) : (
-                  <i class="fa-solid fa-user" style="font-size: 2.5rem; opacity: 0.5;"></i>
-                )}
+        {initialMembers.map((member, idx) => {
+          const divInfo = divisionMap.get(member.division);
+          const borderColor = divInfo?.borderColor || 'rgba(255, 255, 255, 0.1)';
+          const roleColor = divInfo?.roleColor || 'var(--text-secondary)';
+          return (
+            <div 
+              class={`member-card glass-panel member-card-item div-${member.division}`} 
+              data-division={member.division}
+              style={`animation-delay: ${idx * 0.04}s; border-color: ${borderColor};`}
+            >
+              <div class="member-avatar-wrapper">
+                <div class="member-avatar" style={member.image ? "background: transparent;" : ""}>
+                  {member.image ? (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      style={{
+                        width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit', display: 'block',
+                        transform: member.scale ? `scale(${member.scale})` : 'none',
+                        transformOrigin: member.position || 'center'
+                      }}
+                    />
+                  ) : (
+                    <i class="fa-solid fa-user" style="font-size: 2.5rem; opacity: 0.5;"></i>
+                  )}
+                </div>
+              </div>
+              <div class="member-info">
+                <h3>{member.name}</h3>
+                <div class="member-role" style={`color: ${roleColor};`}>{member.role}</div>
+                <span class="member-div">
+                  {divInfo?.displayName || member.division.toUpperCase()}
+                </span>
               </div>
             </div>
-            <div class="member-info">
-              <h3>{member.name}</h3>
-              <div class="member-role">{member.role}</div>
-              <span class="member-div">
-                {member.division === 'core' && 'CORE'}
-                {member.division === 'research' && 'RESEARCH'}
-                {member.division === 'pku' && 'PKU'}
-                {member.division === 'competition' && 'COMPETITION'}
-                {member.division === 'media' && 'MEDIA & PR'}
-                {member.division === 'community' && 'COMMUNITY'}
-              </span>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   </section>
@@ -147,13 +110,24 @@ const initialMembers = [
   window.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const divParam = params.get('div') || params.get('divisi') || 'all';
-    // Map Indonesian URL queries if someone bookmarked them
+    
+    // Map Indonesian or legacy URL queries dynamically based on aliases from configuration data attribute
     let mappedParam = divParam;
-    if (divParam === 'inti') mappedParam = 'core';
-    else if (divParam === 'riset') mappedParam = 'research';
-    else if (divParam === 'lomba') mappedParam = 'competition';
-    else if (divParam === 'medhum') mappedParam = 'media';
-    else if (divParam === 'pengmas') mappedParam = 'community';
+    const filterTabsEl = document.getElementById('filter-tabs');
+    const divisionsData = filterTabsEl?.getAttribute('data-divisions');
+    if (divisionsData) {
+      try {
+        const divisionsList = JSON.parse(divisionsData);
+        const match = divisionsList.find((d: any) => 
+          d.id === divParam || (d.aliases && d.aliases.includes(divParam))
+        );
+        if (match) {
+          mappedParam = match.id;
+        }
+      } catch (e) {
+        console.error("Failed to parse divisions configuration", e);
+      }
+    }
     
     applyFilter(mappedParam);
   });

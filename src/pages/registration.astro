@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import registrationConfig from '../data/registration.json';
+import divisions from '../data/divisions.json';
 ---
 
 <Layout title="Assistant Lab Registration - EIM Research Lab">
@@ -15,10 +17,10 @@ import Layout from '../layouts/Layout.astro';
 
   <section class="section-padding" id="registration">
     <div class="container">
-      <div class="registration-form-container glass-panel" style="max-width: 800px; margin: 0 auto; border-top: 3px solid var(--accent-cyan);">
+      <div class="registration-form-container glass-panel" id="registration-container" data-deadline={registrationConfig.deadline} style="max-width: 800px; margin: 0 auto; border-top: 3px solid var(--accent-cyan);">
         <div class="registration-header" style="text-align: center; margin-bottom: 30px;">
-          <h2 style="font-size: 2rem; margin-bottom: 10px;">Assistant Registration Form</h2>
-          <p style="color: var(--text-secondary);">Complete the form below with valid and correct information.</p>
+          <h2 style="font-size: 2rem; margin-bottom: 10px;">{registrationConfig.title}</h2>
+          <p style="color: var(--text-secondary);">{registrationConfig.subtitle}</p>
         </div>
 
         {/* Status Alerts */}
@@ -49,7 +51,7 @@ import Layout from '../layouts/Layout.astro';
         <div id="registration-expired" style="display: none; text-align: center; padding: 40px 20px; background-color: var(--bg-card); border-radius: 10px; border: 1px solid var(--border-color);">
           <i class="fa-solid fa-clock-rotate-left" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 15px;"></i>
           <h3 style="font-size: 1.5rem; margin-bottom: 10px; color: var(--text-primary);">Registration Period Ended</h3>
-          <p style="color: var(--text-secondary);">Sorry, the assistant registration form is currently closed.</p>
+          <p style="color: var(--text-secondary);">{registrationConfig.closedMessage}</p>
         </div>
 
         {/* Registration Form */}
@@ -86,24 +88,18 @@ import Layout from '../layouts/Layout.astro';
               <label for="divisi_1">Division Choice 1 (Primary Priority)</label>
               <select class="form-control" id="divisi_1" required>
                 <option value="" disabled selected>Select Division 1</option>
-                <option value="Inti">Core (Coordinator, Secretary, Treasurer)</option>
-                <option value="Riset">Research (Infrastructure Research & AI)</option>
-                <option value="PKU">Capacity Development (Networking & Cisco Training)</option>
-                <option value="Lomba">Competition (IT & Networking Championships)</option>
-                <option value="Medhum">Media & PR (Branding & Communications)</option>
-                <option value="Pengmas">Community Service (Social Dedication)</option>
+                {divisions.map(div => (
+                  <option value={div.registrationValue}>{div.registrationLabel}</option>
+                ))}
               </select>
             </div>
             <div class="form-group">
               <label for="divisi_2">Division Choice 2</label>
               <select class="form-control" id="divisi_2" required>
                 <option value="" disabled selected>Select Division 2</option>
-                <option value="Inti">Core (Coordinator, Secretary, Treasurer)</option>
-                <option value="Riset">Research (Infrastructure Research & AI)</option>
-                <option value="PKU">Capacity Development (Networking & Cisco Training)</option>
-                <option value="Lomba">Competition (IT & Networking Championships)</option>
-                <option value="Medhum">Media & PR (Branding & Communications)</option>
-                <option value="Pengmas">Community Service (Social Dedication)</option>
+                {divisions.map(div => (
+                  <option value={div.registrationValue}>{div.registrationLabel}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -125,8 +121,10 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <script>
-  // Registration deadline date
-  const DEADLINE = new Date("2026-08-17T23:59:59").getTime();
+  // Get registration deadline date from container attribute
+  const container = document.getElementById('registration-container');
+  const deadlineStr = container?.getAttribute('data-deadline') || "2026-08-17T23:59:59";
+  const DEADLINE = new Date(deadlineStr).getTime();
   
   const timerContainer = document.getElementById('registration-timer');
   const expiredContainer = document.getElementById('registration-expired');
