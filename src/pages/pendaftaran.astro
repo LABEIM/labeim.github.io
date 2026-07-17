@@ -1,0 +1,226 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Pendaftaran Asisten Lab - EIM Research Lab">
+  <section class="page-header" style="padding-top: 150px; padding-bottom: 50px;">
+    <div class="container">
+      <div class="page-header-content">
+        <div class="hero-tag"><span></span> Oprec Asisten</div>
+        <h1>Pendaftaran <span class="text-gradient-cyan">Asisten Lab</span></h1>
+        <p class="hero-desc">Mari bergabung menjadi bagian dari EIM Research Lab. Kembangkan potensimu di bidang infrastruktur IT, jaringan, dan riset teknologi.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding" id="pendaftaran">
+    <div class="container">
+      <div class="registration-form-container glass-panel" style="max-width: 800px; margin: 0 auto; border-top: 3px solid var(--accent-cyan);">
+        <div class="registration-header" style="text-align: center; margin-bottom: 30px;">
+          <h2 style="font-size: 2rem; margin-bottom: 10px;">Formulir Pendaftaran Asisten</h2>
+          <p style="color: var(--text-secondary);">Lengkapi formulir di bawah ini dengan data yang valid dan benar.</p>
+        </div>
+
+        {/* Status Alerts */}
+        <div id="status-alert-error" style="display: none; backgroundColor: rgba(255,0,0,0.1); color: #ff6b6b; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;"></div>
+        <div id="status-alert-success" style="display: none; backgroundColor: rgba(0,255,0,0.1); color: #20c997; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;"></div>
+
+        {/* Countdown Timer */}
+        <div class="registration-timer" id="registration-timer">
+          <div class="timer-block">
+            <div id="timer-days" style="font-size: 1.5rem; font-weight: bold; color: var(--text-primary);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">Hari</div>
+          </div>
+          <div class="timer-block">
+            <div id="timer-hours" style="font-size: 1.5rem; font-weight: bold; color: var(--text-primary);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">Jam</div>
+          </div>
+          <div class="timer-block">
+            <div id="timer-minutes" style="font-size: 1.5rem; font-weight: bold; color: var(--text-primary);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">Menit</div>
+          </div>
+          <div class="timer-block">
+            <div id="timer-seconds" style="font-size: 1.5rem; font-weight: bold; color: var(--accent-red);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">Detik</div>
+          </div>
+        </div>
+
+        {/* Expired Message */}
+        <div id="registration-expired" style="display: none; text-align: center; padding: 40px 20px; background-color: var(--bg-card); border-radius: 10px; border: 1px solid var(--border-color);">
+          <i class="fa-solid fa-clock-rotate-left" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 15px;"></i>
+          <h3 style="font-size: 1.5rem; margin-bottom: 10px; color: var(--text-primary);">Waktu Pendaftaran Telah Habis</h3>
+          <p style="color: var(--text-secondary);">Maaf, formulir pendaftaran asisten laboratorium saat ini sudah ditutup.</p>
+        </div>
+
+        {/* Pendaftaran Form */}
+        <form id="pendaftaran-form">
+          <div class="form-group">
+            <label htmlFor="nama_lengkap">Nama Lengkap</label>
+            <input type="text" class="form-control" id="nama_lengkap" placeholder="Nama lengkap" required />
+          </div>
+
+          <div class="form-row" style="margin-top: 15px;">
+            <div class="form-group">
+              <label htmlFor="kelas">Kelas</label>
+              <input type="text" class="form-control" id="kelas" placeholder="Contoh: SI4XXX" required />
+            </div>
+            <div class="form-group">
+              <label htmlFor="nim">NIM</label>
+              <input type="text" class="form-control" id="nim" placeholder="NIM" pattern="[0-9]+" required />
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top: 15px;">
+            <div class="form-group">
+              <label htmlFor="email">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="Email" required />
+            </div>
+            <div class="form-group">
+              <label htmlFor="nomor_telp">Nomor Telepon (WhatsApp)</label>
+              <input type="tel" class="form-control" id="nomor_telp" placeholder="Contoh: 081XXXXX" pattern="[0-9]+" required />
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top: 15px;">
+            <div class="form-group">
+              <label htmlFor="divisi_1">Pilihan Divisi 1 (Prioritas Utama)</label>
+              <select class="form-control" id="divisi_1" required>
+                <option value="" disabled selected>Pilih Divisi 1</option>
+                <option value="Inti">INTI (Koordinator, Sekretaris, Bendahara)</option>
+                <option value="Riset">RISET (Penelitian Infrastruktur & AI)</option>
+                <option value="PKU">PKU (Pengembangan Kapasitas Utama)</option>
+                <option value="Lomba">LOMBA (Kompetisi IT & Jaringan)</option>
+                <option value="Medhum">MEDHUM (Media & Hubungan Masyarakat)</option>
+                <option value="Pengmas">PENGMAS (Pengabdian Masyarakat)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label htmlFor="divisi_2">Pilihan Divisi 2</label>
+              <select class="form-control" id="divisi_2" required>
+                <option value="" disabled selected>Pilih Divisi 2</option>
+                <option value="Inti">INTI (Koordinator, Sekretaris, Bendahara)</option>
+                <option value="Riset">RISET (Penelitian Infrastruktur & AI)</option>
+                <option value="PKU">PKU (Pengembangan Kapasitas Utama)</option>
+                <option value="Lomba">LOMBA (Kompetisi IT & Jaringan)</option>
+                <option value="Medhum">MEDHUM (Media & Hubungan Masyarakat)</option>
+                <option value="Pengmas">PENGMAS (Pengabdian Masyarakat)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 15px;">
+            <label htmlFor="alasan">Alasan Mendaftar</label>
+            <textarea class="form-control" id="alasan" rows="4" placeholder="Ceritakan motivasi dan alasan Anda ingin bergabung dengan divisi pilihan Anda..." required></textarea>
+          </div>
+
+          <div class="form-actions" style="justify-content: center; margin-top: 40px;">
+            <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%; max-width: 300px; padding: 14px; font-size: 1.1rem;">
+              <span id="btn-text">Kirim Pendaftaran <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Registration deadline date
+  const DEADLINE = new Date("2026-08-17T23:59:59").getTime();
+  
+  const timerContainer = document.getElementById('registration-timer');
+  const expiredContainer = document.getElementById('registration-expired');
+  const formElement = document.getElementById('pendaftaran-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const btnText = document.getElementById('btn-text');
+
+  const daysEl = document.getElementById('timer-days');
+  const hoursEl = document.getElementById('timer-hours');
+  const minutesEl = document.getElementById('timer-minutes');
+  const secondsEl = document.getElementById('timer-seconds');
+
+  const alertError = document.getElementById('status-alert-error') as HTMLElement;
+  const alertSuccess = document.getElementById('status-alert-success') as HTMLElement;
+
+  // 1. Countdown logic
+  const timer = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = DEADLINE - now;
+
+    if (distance < 0) {
+      clearInterval(timer);
+      if (timerContainer) timerContainer.style.display = 'none';
+      if (formElement) formElement.style.display = 'none';
+      if (expiredContainer) expiredContainer.style.display = 'block';
+    } else {
+      if (daysEl) daysEl.innerText = String(Math.floor(distance / (1000 * 60 * 60 * 24)));
+      if (hoursEl) hoursEl.innerText = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+      if (minutesEl) minutesEl.innerText = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+      if (secondsEl) secondsEl.innerText = String(Math.floor((distance % (1000 * 60)) / 1000));
+    }
+  }, 1000);
+
+  // 2. Form submission logic
+  formElement?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    alertError.style.display = 'none';
+    alertSuccess.style.display = 'none';
+
+    const nama = (document.getElementById('nama_lengkap') as HTMLInputElement).value;
+    const kelas = (document.getElementById('kelas') as HTMLInputElement).value;
+    const nim = (document.getElementById('nim') as HTMLInputElement).value;
+    const email = (document.getElementById('email') as HTMLInputElement).value;
+    const nomor_telp = (document.getElementById('nomor_telp') as HTMLInputElement).value;
+    const divisi_1 = (document.getElementById('divisi_1') as HTMLSelectElement).value;
+    const divisi_2 = (document.getElementById('divisi_2') as HTMLSelectElement).value;
+    const alasan = (document.getElementById('alasan') as HTMLTextAreaElement).value;
+
+    if (divisi_1 === divisi_2) {
+      alertError.innerText = 'Pilihan Divisi 1 dan Divisi 2 tidak boleh sama!';
+      alertError.style.display = 'block';
+      return;
+    }
+
+    if (submitBtn && btnText) {
+      submitBtn.disabled = true;
+      btnText.innerHTML = `Mengirim... <i class="fa-solid fa-circle-notch fa-spin" style="margin-left: 8px;"></i>`;
+    }
+
+    try {
+      // Use import.meta.env.PUBLIC_GOOGLE_SHEET_SCRIPT_URL for Astro environment variables
+      const scriptURL = (import.meta.env.PUBLIC_GOOGLE_SHEET_SCRIPT_URL || '').replace(/^['"]|['"]$/g, '').trim();
+      if (!scriptURL) {
+        throw new Error('URL Google Sheets belum dikonfigurasi di file .env.');
+      }
+
+      const formPayload = new FormData();
+      formPayload.append('Nama Lengkap', nama);
+      formPayload.append('Kelas', kelas);
+      formPayload.append('NIM', nim);
+      formPayload.append('Email', email);
+      formPayload.append('Nomor Telepon', nomor_telp);
+      formPayload.append('Divisi 1', divisi_1);
+      formPayload.append('Divisi 2', divisi_2);
+      formPayload.append('Alasan', alasan);
+
+      await fetch(scriptURL, {
+        method: 'POST',
+        body: formPayload,
+        mode: 'no-cors'
+      });
+
+      alertSuccess.innerText = 'Pendaftaran berhasil dikirim! Silakan cek email Anda.';
+      alertSuccess.style.display = 'block';
+      formElement.reset();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err: any) {
+      alertError.innerText = err.message || 'Gagal mengirim data. Coba lagi beberapa saat.';
+      alertError.style.display = 'block';
+    } finally {
+      if (submitBtn && btnText) {
+        submitBtn.disabled = false;
+        btnText.innerHTML = `Kirim Pendaftaran <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i>`;
+      }
+    }
+  });
+</script>

@@ -1,0 +1,9 @@
+---
+title: "Chevening Scholarship"
+category: "Beasiswa"
+author: "UK Government"
+news_date: "2026-06-25"
+image:
+  - "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=1200"
+---
+Chevening adalah program beasiswa global Pemerintah Inggris yang menawarkan kesempatan kepada pemimpin masa depan untuk belajar di Inggris. Beasiswa ini diberikan kepada mahasiswa berprestasi dengan potensi kepemimpinan.

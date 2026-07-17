@@ -1,0 +1,82 @@
+---
+const pathname = Astro.url.pathname;
+const cleanPath = pathname.endsWith('/') && pathname.length > 1 ? pathname.slice(0, -1) : pathname;
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/event', label: 'Event' },
+  { href: '/structure', label: 'Structure' },
+  { href: '/news', label: 'News' },
+  { href: '/pendaftaran', label: 'Pendaftaran' },
+];
+
+const isActive = (href: string) => {
+  if (href === '/') {
+    return cleanPath === '/';
+  }
+  return cleanPath.startsWith(href);
+};
+---
+
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="/" class="logo-container">
+      <div class="logo-icon">
+        <img src="/img/EIM Only Logo.png" alt="EIM Logo" />
+      </div>
+      <div class="logo-text">
+        <span class="text-gradient-dual">EIM</span>
+        <span class="logo-sub">Research Lab</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" id="nav-links">
+      {links.map((link) => (
+        <li class={isActive(link.href) ? 'active' : ''}>
+          <a href={link.href}>{link.label}</a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="nav-toggle" id="nav-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Handle navbar scroll class
+  const navbar = document.getElementById('navbar');
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      navbar?.classList.add('scrolled');
+    } else {
+      navbar?.classList.remove('scrolled');
+    }
+  };
+  
+  // Initial check
+  handleScroll();
+  window.addEventListener('scroll', handleScroll);
+
+  // Handle mobile menu toggle
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+
+  navToggle?.addEventListener('click', () => {
+    navToggle.classList.toggle('active');
+    navLinks?.classList.toggle('active');
+  });
+
+  // Close menu on link click
+  const links = navLinks?.querySelectorAll('a');
+  links?.forEach(link => {
+    link.addEventListener('click', () => {
+      navToggle?.classList.remove('active');
+      navLinks?.classList.remove('active');
+    });
+  });
+</script>

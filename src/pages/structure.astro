@@ -1,0 +1,145 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const initialMembers = [
+  // INTI Division
+  { id: 1, name: "Ferdyansyah Adi Saputra", role: "Koordinator Lab EIM", division: "inti", image: "/person/inti/ferday.JPG", scale: "3", position: "center 32%" },
+  { id: 2, name: "Raffi Raditya Sofwan", role: "Sekretaris", division: "inti", image: "/person/inti/bewok.JPG", scale: "2.8", position: "55% 35%" },
+  { id: 3, name: "Kania Shafa", role: "Bendahara", division: "inti", image: "/person/inti/kania.JPG", scale: "2.7", position: "45% 52%" },
+
+  // RISET Division
+  { id: 4, name: "Ardy Maulana Nayottama Nugroho", role: "Koordinator Riset", division: "riset", image: "/person/riset/ardyy.JPG", scale: "2.3", position: "53% 15%" },
+  { id: 5, name: "Tb. Alta Ulil Abshor", role: "Staff", division: "riset", image: "/person/riset/alta.JPG", scale: "3", position: "49% 35%" },
+  { id: 6, name: "Nayla Aulia Rusyda", role: "Staff", division: "riset", image: "/person/riset/nayla.JPG", scale: "3", position: "52% 43%" },
+  { id: 7, name: "Hana Humaira", role: "Staff", division: "riset", image: "/person/riset/hana.JPG", scale: "3", position: "center 40%" },
+  { id: 8, name: "Dara Saifa Mahiroh", role: "Staff", division: "riset", image: "/person/riset/dara.JPG", scale: "2.5", position: "48% 34%" },
+
+  // PKU Division
+  { id: 9, name: "Winsenlaus Alfero Krisna Ivander Lael", role: "Koordinator PKU", division: "pku", image: "/person/pku/lael.JPG", scale: "2.8", position: "50% 13%" },
+  { id: 10, name: "Fakhri Muhammad Habibi", role: "Staff", division: "pku", image: "/person/pku/habibi.JPG", scale: "2.8", position: "50% 15%" },
+  { id: 11, name: "Faiz Dhya Muhamad Rahmantyo", role: "Staff", division: "pku", image: "/person/pku/faiz.JPG", scale: "2.8", position: "50% 15%" },
+
+  // LOMBA Division
+  { id: 12, name: "Akchmad Reza Zandri", role: "Koordinator Lomba", division: "lomba", image: "/person/lomba/reza.JPG", scale: "2.8", position: "49% 35%" },
+  { id: 13, name: "Ganda Dwiyana", role: "Staff", division: "lomba", image: "/person/lomba/ganda.JPG", scale: "2.8", position: "50% 31%" },
+  { id: 14, name: "Frixtho Alex Credorius Latumahina", role: "Staff", division: "lomba", image: "/person/lomba/frixtho.JPG", scale: "2.8", position: "48% 25%" },
+  { id: 15, name: "Muhammad Fizry Alifta", role: "Staff", division: "lomba", image: "/person/lomba/alif.JPG", scale: "2.8", position: "50% 36%" },
+
+  // MEDHUM Division
+  { id: 17, name: "Aura Haya Azka", role: "Koordinator Medhum", division: "medhum", image: "/person/medhum/aura.JPG", scale: "2.2", position: "50% 40%" },
+  { id: 18, name: "Firman Zuhdi Affandi", role: "Staff", division: "medhum", image: "/person/medhum/firman.JPG", scale: "2.8", position: "50% 33%" },
+  { id: 19, name: "Affan Maulana Raffi", role: "Staff", division: "medhum", image: "/person/medhum/affan.JPG", scale: "2.4", position: "48% 19%" },
+  { id: 20, name: "Wildan Zaaqi", role: "Staff", division: "medhum", image: "/person/medhum/wildan.JPG", scale: "2.4", position: "51% 45%" },
+
+  // PENGMAS Division
+  { id: 21, name: "Bagas Haris Saputro", role: "Koordinator Pengmas", division: "pengmas", image: "/person/pengmas/bagas.JPG", scale: "3", position: "50% 20%" },
+  { id: 22, name: "Levi Soraya", role: "Staff", division: "pengmas", image: "/person/pengmas/raya.JPG", scale: "2", position: "50% 18%" },
+  { id: 23, name: "Salman Alfarisy", role: "Staff", division: "pengmas", image: "/person/pengmas/salman.JPG", scale: "2.3", position: "50% 43%" },
+  { id: 24, name: "Deidanisa Aulia Pradina Kya", role: "Staff", division: "pengmas", image: "/person/pengmas/kya.JPG", scale: "3.3", position: "50% 45%" },
+  { id: 25, name: "Raffi Akbar Firdaus", role: "Staff", division: "pengmas", image: "/person/pengmas/rafiakbar.JPG", scale: "2.4", position: "45% 51%" },
+];
+---
+
+<Layout title="Struktur Kepengurusan - EIM Research Lab">
+  <section class="page-header" style="padding-top: 150px; padding-bottom: 50px;">
+    <div class="container">
+      <div class="page-header-content">
+        <h1>Struktur <span class="text-gradient-cyan">Kepengurusan</span></h1>
+        <p style="margin-top: 15px; color: var(--text-secondary);">Mengenal asisten laboratorium EIM di setiap divisi.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding" id="structure">
+    <div class="container">
+      <div class="filter-container" id="filter-tabs">
+        <button class="filter-tab active" data-filter="all">Semua Divisi</button>
+        <button class="filter-tab" data-filter="inti">INTI</button>
+        <button class="filter-tab" data-filter="riset">RISET</button>
+        <button class="filter-tab" data-filter="pku">PKU</button>
+        <button class="filter-tab" data-filter="lomba">LOMBA</button>
+        <button class="filter-tab" data-filter="medhum">MEDHUM</button>
+        <button class="filter-tab" data-filter="pengmas">PENGMAS</button>
+      </div>
+
+      <div class="member-grid" id="member-grid">
+        {initialMembers.map((member, idx) => (
+          <div 
+            class={`member-card glass-panel member-card-item div-${member.division}`} 
+            data-division={member.division}
+            style={`animation-delay: ${idx * 0.04}s`}
+          >
+            <div class="member-avatar-wrapper">
+              <div class="member-avatar" style={member.image ? "background: transparent;" : ""}>
+                {member.image ? (
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    style={{
+                      width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit', display: 'block',
+                      transform: member.scale ? `scale(${member.scale})` : 'none',
+                      transformOrigin: member.position || 'center'
+                    }}
+                  />
+                ) : (
+                  <i class="fa-solid fa-user" style="font-size: 2.5rem; opacity: 0.5;"></i>
+                )}
+              </div>
+            </div>
+            <div class="member-info">
+              <h3>{member.name}</h3>
+              <div class="member-role">{member.role}</div>
+              <span class="member-div">{member.division.toUpperCase()}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const tabs = document.querySelectorAll('#filter-tabs .filter-tab');
+  const members = document.querySelectorAll('#member-grid .member-card-item');
+
+  function applyFilter(filterVal: string) {
+    // Update active tab class
+    tabs.forEach(tab => {
+      if (tab.getAttribute('data-filter') === filterVal) {
+        tab.classList.add('active');
+      } else {
+        tab.classList.remove('active');
+      }
+    });
+
+    // Show/hide members
+    members.forEach(member => {
+      const card = member as HTMLElement;
+      const division = card.getAttribute('data-division');
+      if (filterVal === 'all' || division === filterVal) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Handle click on tabs
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const filterVal = tab.getAttribute('data-filter') || 'all';
+      applyFilter(filterVal);
+      
+      // Update URL
+      const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?div=${filterVal}`;
+      window.history.pushState({ path: newUrl }, '', newUrl);
+    });
+  });
+
+  // Handle initial load from search params
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const divParam = params.get('div') || params.get('divisi') || 'all';
+    applyFilter(divParam);
+  });
+</script>
