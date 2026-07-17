@@ -1,0 +1,151 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import divisions from '../data/divisions.json';
+
+
+// Fetch and sort news
+const allNews = await getCollection('news');
+const latestNews = allNews
+  .sort((a, b) => new Date(b.data.news_date).getTime() - new Date(a.data.news_date).getTime())
+  .slice(0, 3);
+---
+
+<Layout title="EIM Research Lab - Enterprise Infrastructure Management">
+  <header class="hero" id="home">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span></span> Enterprise Infrastructure Management Lab
+          </div>
+          <h1>
+            Building <span class="text-gradient-red">Digital Infrastructure</span> of the Future with <span class="text-gradient-cyan">Research & AI</span>
+          </h1>
+          <p class="hero-desc">
+            We conduct research, in-depth studies, and training in enterprise network technology, data center optimization, cloud computing, and infrastructure automation.
+          </p>
+          <div class="hero-actions">
+            <a href="/registration" class="btn btn-primary" style="box-shadow: var(--glow-cyan-intense); transform: scale(1.05);">
+              Register as Assistant Now <i class="fa-solid fa-user-plus"></i>
+            </a>
+            <a href="/structure" class="btn btn-secondary">
+              View Assistant Structure <i class="fa-solid fa-users"></i>
+            </a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="visual-orbit">
+            <div class="visual-core">
+              <i class="fa-solid fa-server fa-3x text-gradient-dual"></i>
+            </div>
+            <div class="visual-node node-1" title="Cloud Computing">
+              <i class="fa-solid fa-cloud"></i>
+            </div>
+            <div class="visual-node node-2" title="Cyber Security">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div class="visual-node node-3" title="Network Infrastructure">
+              <i class="fa-solid fa-network-wired"></i>
+            </div>
+            <div class="visual-node node-4" title="AI & Data Optimization">
+              <i class="fa-solid fa-microchip"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Research Focus */}
+      <div style="margin-top: 100px;">
+        <div class="section-title">
+          <h2>Research Focus & Laboratory</h2>
+          <p>We focus on the essential pillars of large-scale information technology infrastructure.</p>
+        </div>
+        <div class="focus-grid">
+          <div class="focus-card glass-panel">
+            <div class="focus-icon">
+              <i class="fa-solid fa-network-wired"></i>
+            </div>
+            <h3>Network Optimization</h3>
+            <p>Assessing route efficiency, routing & switching protocols, network traffic load simulation, and enterprise-scale regional interconnection.</p>
+          </div>
+          <div class="focus-card glass-panel">
+            <div class="focus-icon">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+            <h3>Cloud Infrastructure</h3>
+            <p>Implementation of private & public cloud, containerization (Docker, Kubernetes), network virtualization, and hybrid data center integration.</p>
+          </div>
+          <div class="focus-card glass-panel">
+            <div class="focus-icon">
+              <i class="fa-solid fa-robot"></i>
+            </div>
+            <h3>Network Automation & AI</h3>
+            <p>Switch/router configuration automation using Ansible/Python, and intelligent network performance monitoring based on artificial intelligence.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Lab Divisions */}
+      <div style="margin-top: 100px;">
+        <div class="section-title">
+          <h2>EIM Laboratory Divisions</h2>
+          <p>EIM Laboratory consists of 6 main divisions collaborating in integrated research and operations.</p>
+        </div>
+        <div class="divisions-brief-grid">
+          {divisions.map(div => (
+            <a href={`/structure?div=${div.id}`} class="div-brief-card glass-panel" style="display: block; cursor: pointer;">
+              <h4>{div.displayName}</h4>
+              <p>{div.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Latest News */}
+      <div style="margin-top: 100px; margin-bottom: 20px;">
+        <div class="section-title">
+          <h2>Latest News</h2>
+          <p>Latest news and article releases from EIM Research Lab.</p>
+        </div>
+        <div class="news-grid">
+          {latestNews.length === 0 ? (
+            <div class="news-empty-state glass-panel" style="grid-column: 1 / -1;">
+              <i class="fa-regular fa-newspaper"></i>
+              <p style="color: var(--text-secondary);">No latest news available.</p>
+            </div>
+          ) : (
+            latestNews.map(news => {
+              const coverImg = (news.data.image && news.data.image.length > 0) 
+                ? news.data.image[0] 
+                : "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=600";
+              return (
+                <div class="news-card glass-panel">
+                  <div class="news-img" style="position: relative; height: 200px; overflow: hidden; border-radius: 12px 12px 0 0;">
+                    <img src={coverImg} alt={news.data.title} style="width: 100%; height: 100%; object-fit: cover;" />
+                    <span class="news-tag" style="position: absolute; top: 15px; right: 15px; background: var(--accent-cyan); color: #000; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">{news.data.category}</span>
+                  </div>
+                  <div class="news-content" style="padding: 20px;">
+                    <div class="news-date" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 10px;">
+                      <i class="fa-regular fa-calendar"></i> {new Date(news.data.news_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </div>
+                    <h3 style="margin-bottom: 10px; font-size: 1.2rem; line-height: 1.4;">{news.data.title}</h3>
+                    <p class="news-desc" style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{news.body}</p>
+                    <div class="news-footer" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-secondary);">
+                      <span class="news-author">By: {news.data.author}</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+          <a href="/news" class="btn btn-secondary">
+            View All News <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+</Layout>

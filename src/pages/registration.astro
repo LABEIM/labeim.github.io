@@ -1,0 +1,225 @@
+---
+import Layout from '../layouts/Layout.astro';
+import registrationConfig from '../data/registration.json';
+import divisions from '../data/divisions.json';
+---
+
+<Layout title="Assistant Lab Registration - EIM Research Lab">
+  <section class="page-header" style="padding-top: 150px; padding-bottom: 50px;">
+    <div class="container">
+      <div class="page-header-content">
+        <div class="hero-tag"><span></span> Assistant Recruitment</div>
+        <h1>Assistant <span class="text-gradient-cyan">Lab Registration</span></h1>
+        <p class="hero-desc">Join us and become a part of EIM Research Lab. Develop your potential in IT infrastructure, networks, and technology research.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding" id="registration">
+    <div class="container">
+      <div class="registration-form-container glass-panel" id="registration-container" data-deadline={registrationConfig.deadline} style="max-width: 800px; margin: 0 auto; border-top: 3px solid var(--accent-cyan);">
+        <div class="registration-header" style="text-align: center; margin-bottom: 30px;">
+          <h2 style="font-size: 2rem; margin-bottom: 10px;">{registrationConfig.title}</h2>
+          <p style="color: var(--text-secondary);">{registrationConfig.subtitle}</p>
+        </div>
+
+        {/* Status Alerts */}
+        <div id="status-alert-error" style="display: none; backgroundColor: rgba(255,0,0,0.1); color: #ff6b6b; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;"></div>
+        <div id="status-alert-success" style="display: none; backgroundColor: rgba(0,255,0,0.1); color: #20c997; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;"></div>
+
+        {/* Countdown Timer */}
+        <div class="registration-timer" id="registration-timer">
+          <div class="timer-block">
+            <div id="timer-days" style="font-size: 1.5rem; font-weight: bold; color: var(--text-primary);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">Days</div>
+          </div>
+          <div class="timer-block">
+            <div id="timer-hours" style="font-size: 1.5rem; font-weight: bold; color: var(--text-primary);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">Hours</div>
+          </div>
+          <div class="timer-block">
+            <div id="timer-minutes" style="font-size: 1.5rem; font-weight: bold; color: var(--text-primary);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">Minutes</div>
+          </div>
+          <div class="timer-block">
+            <div id="timer-seconds" style="font-size: 1.5rem; font-weight: bold; color: var(--accent-red);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">Seconds</div>
+          </div>
+        </div>
+
+        {/* Expired Message */}
+        <div id="registration-expired" style="display: none; text-align: center; padding: 40px 20px; background-color: var(--bg-card); border-radius: 10px; border: 1px solid var(--border-color);">
+          <i class="fa-solid fa-clock-rotate-left" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 15px;"></i>
+          <h3 style="font-size: 1.5rem; margin-bottom: 10px; color: var(--text-primary);">Registration Period Ended</h3>
+          <p style="color: var(--text-secondary);">{registrationConfig.closedMessage}</p>
+        </div>
+
+        {/* Registration Form */}
+        <form id="pendaftaran-form">
+          <div class="form-group">
+            <label for="nama_lengkap">Full Name</label>
+            <input type="text" class="form-control" id="nama_lengkap" placeholder="Full name" required />
+          </div>
+
+          <div class="form-row" style="margin-top: 15px;">
+            <div class="form-group">
+              <label for="kelas">Class</label>
+              <input type="text" class="form-control" id="kelas" placeholder="Example: SI4XXX" required />
+            </div>
+            <div class="form-group">
+              <label for="nim">Student ID (NIM)</label>
+              <input type="text" class="form-control" id="nim" placeholder="Student ID" pattern="[0-9]+" required />
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top: 15px;">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" class="form-control" id="email" placeholder="Email" required />
+            </div>
+            <div class="form-group">
+              <label for="nomor_telp">Phone Number (WhatsApp)</label>
+              <input type="tel" class="form-control" id="nomor_telp" placeholder="Example: 081XXXXX" pattern="[0-9]+" required />
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top: 15px;">
+            <div class="form-group">
+              <label for="divisi_1">Division Choice 1 (Primary Priority)</label>
+              <select class="form-control" id="divisi_1" required>
+                <option value="" disabled selected>Select Division 1</option>
+                {divisions.map(div => (
+                  <option value={div.registrationValue}>{div.registrationLabel}</option>
+                ))}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="divisi_2">Division Choice 2</label>
+              <select class="form-control" id="divisi_2" required>
+                <option value="" disabled selected>Select Division 2</option>
+                {divisions.map(div => (
+                  <option value={div.registrationValue}>{div.registrationLabel}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 15px;">
+            <label for="alasan">Reason for Applying</label>
+            <textarea class="form-control" id="alasan" rows="4" placeholder="Describe your motivation and reasons for wanting to join your selected divisions..." required></textarea>
+          </div>
+
+          <div class="form-actions" style="justify-content: center; margin-top: 40px;">
+            <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%; max-width: 300px; padding: 14px; font-size: 1.1rem;">
+              <span id="btn-text">Submit Registration <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Get registration deadline date from container attribute
+  const container = document.getElementById('registration-container');
+  const deadlineStr = container?.getAttribute('data-deadline') || "2026-08-17T23:59:59";
+  const DEADLINE = new Date(deadlineStr).getTime();
+  
+  const timerContainer = document.getElementById('registration-timer');
+  const expiredContainer = document.getElementById('registration-expired');
+  const formElement = document.getElementById('pendaftaran-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const btnText = document.getElementById('btn-text');
+
+  const daysEl = document.getElementById('timer-days');
+  const hoursEl = document.getElementById('timer-hours');
+  const minutesEl = document.getElementById('timer-minutes');
+  const secondsEl = document.getElementById('timer-seconds');
+
+  const alertError = document.getElementById('status-alert-error') as HTMLElement;
+  const alertSuccess = document.getElementById('status-alert-success') as HTMLElement;
+
+  // 1. Countdown logic
+  const timer = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = DEADLINE - now;
+
+    if (distance < 0) {
+      clearInterval(timer);
+      if (timerContainer) timerContainer.style.display = 'none';
+      if (formElement) formElement.style.display = 'none';
+      if (expiredContainer) expiredContainer.style.display = 'block';
+    } else {
+      if (daysEl) daysEl.innerText = String(Math.floor(distance / (1000 * 60 * 60 * 24)));
+      if (hoursEl) hoursEl.innerText = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+      if (minutesEl) minutesEl.innerText = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+      if (secondsEl) secondsEl.innerText = String(Math.floor((distance % (1000 * 60)) / 1000));
+    }
+  }, 1000);
+
+  // 2. Form submission logic
+  formElement?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    alertError.style.display = 'none';
+    alertSuccess.style.display = 'none';
+
+    const nama = (document.getElementById('nama_lengkap') as HTMLInputElement).value;
+    const kelas = (document.getElementById('kelas') as HTMLInputElement).value;
+    const nim = (document.getElementById('nim') as HTMLInputElement).value;
+    const email = (document.getElementById('email') as HTMLInputElement).value;
+    const nomor_telp = (document.getElementById('nomor_telp') as HTMLInputElement).value;
+    const divisi_1 = (document.getElementById('divisi_1') as HTMLSelectElement).value;
+    const divisi_2 = (document.getElementById('divisi_2') as HTMLSelectElement).value;
+    const alasan = (document.getElementById('alasan') as HTMLTextAreaElement).value;
+
+    if (divisi_1 === divisi_2) {
+      alertError.innerText = 'Division Choice 1 and Division Choice 2 cannot be the same!';
+      alertError.style.display = 'block';
+      return;
+    }
+
+    if (submitBtn && btnText) {
+      submitBtn.disabled = true;
+      btnText.innerHTML = `Submitting... <i class="fa-solid fa-circle-notch fa-spin" style="margin-left: 8px;"></i>`;
+    }
+
+    try {
+      // Use import.meta.env.PUBLIC_GOOGLE_SHEET_SCRIPT_URL for Astro environment variables
+      const scriptURL = (import.meta.env.PUBLIC_GOOGLE_SHEET_SCRIPT_URL || '').replace(/^['"]|['"]$/g, '').trim();
+      if (!scriptURL) {
+        throw new Error('Google Sheets URL has not been configured in the .env file.');
+      }
+
+      const formPayload = new FormData();
+      // Retain original Indonesian keys for backend Sheet compatibility
+      formPayload.append('Nama Lengkap', nama);
+      formPayload.append('Kelas', kelas);
+      formPayload.append('NIM', nim);
+      formPayload.append('Email', email);
+      formPayload.append('Nomor Telepon', nomor_telp);
+      formPayload.append('Divisi 1', divisi_1);
+      formPayload.append('Divisi 2', divisi_2);
+      formPayload.append('Alasan', alasan);
+
+      await fetch(scriptURL, {
+        method: 'POST',
+        body: formPayload,
+        mode: 'no-cors'
+      });
+
+      alertSuccess.innerText = 'Registration successfully submitted! Please check your email.';
+      alertSuccess.style.display = 'block';
+      formElement.reset();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err: any) {
+      alertError.innerText = err.message || 'Failed to submit. Please try again later.';
+      alertError.style.display = 'block';
+    } finally {
+      if (submitBtn && btnText) {
+        submitBtn.disabled = false;
+        btnText.innerHTML = `Submit Registration <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i>`;
+      }
+    }
+  });
+</script>

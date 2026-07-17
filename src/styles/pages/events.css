@@ -1,0 +1,111 @@
+/* Event Section Styles */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.event-cover-img {
+    margin: -36px -36px 20px -36px;
+    height: 180px;
+    overflow: hidden;
+}
+
+.event-cover-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.event-card:hover .event-cover-img img {
+    transform: scale(1.05);
+}
+
+.event-card {
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: var(--transition-normal);
+}
+
+.event-card:hover {
+    transform: translateY(-8px);
+}
+
+.event-status {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.event-status.completed {
+    background: rgba(17, 180, 189, 0.08);
+    border: 1px solid rgba(17, 180, 189, 0.15);
+    color: var(--accent-cyan);
+}
+
+.event-status.upcoming {
+    background: rgba(14, 85, 95, 0.08);
+    border: 1px solid rgba(14, 85, 95, 0.15);
+    color: var(--accent-red);
+}
+
+.event-status.ongoing {
+    background: rgba(255, 152, 0, 0.08);
+    border: 1px solid rgba(255, 152, 0, 0.25);
+    color: #ff9800;
+}
+
+.event-icon {
+    font-size: 2.2rem;
+    color: var(--accent-cyan);
+    margin-bottom: 20px;
+}
+
+.event-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+}
+
+.event-cat {
+    font-size: 0.82rem;
+    color: var(--accent-red);
+    font-weight: 700;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.event-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    flex-grow: 1;
+    line-height: 1.6;
+}
+
+.event-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+}
+
+.event-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
