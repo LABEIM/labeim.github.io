@@ -6,7 +6,9 @@
     "description": "Coordinator, Secretary, and Treasurer managing internal lab operations.",
     "registrationLabel": "Core (Coordinator, Secretary, Treasurer)",
     "registrationValue": "Inti",
-    "aliases": ["inti"],
+    "aliases": [
+      "inti"
+    ],
     "borderColor": "rgba(var(--accent-red-rgb), 0.3)",
     "roleColor": "var(--accent-red-hover)"
   },
@@ -17,7 +19,9 @@
     "description": "Focuses on infrastructure research, AI, and scientific publications.",
     "registrationLabel": "Research (Infrastructure Research & AI)",
     "registrationValue": "Riset",
-    "aliases": ["riset"],
+    "aliases": [
+      "riset"
+    ],
     "borderColor": "rgba(var(--accent-cyan-rgb), 0.3)",
     "roleColor": "var(--accent-cyan)"
   },
@@ -26,7 +30,7 @@
     "name": "PKU",
     "displayName": "PKU",
     "description": "Primary Capacity Development through Cisco training and networking.",
-    "registrationLabel": "Capacity Development (Networking & Cisco Training)",
+    "registrationLabel": "PKU (Networking & Cisco Training)",
     "registrationValue": "PKU",
     "aliases": [],
     "borderColor": "rgba(79, 172, 254, 0.3)",
@@ -39,7 +43,9 @@
     "description": "Prepares competitive teams for national IT & networking championships.",
     "registrationLabel": "Competition (IT & Networking Championships)",
     "registrationValue": "Lomba",
-    "aliases": ["lomba"],
+    "aliases": [
+      "lomba"
+    ],
     "borderColor": "rgba(255, 186, 0, 0.3)",
     "roleColor": "#ffba00"
   },
@@ -50,7 +56,9 @@
     "description": "Media and Public Relations for branding and information dissemination.",
     "registrationLabel": "Media & PR (Branding & Communications)",
     "registrationValue": "Medhum",
-    "aliases": ["medhum"],
+    "aliases": [
+      "medhum"
+    ],
     "borderColor": "rgba(163, 7, 186, 0.3)",
     "roleColor": "#a307ba"
   },
@@ -61,7 +69,9 @@
     "description": "Community Service conducted periodically to help the society.",
     "registrationLabel": "Community Service (Social Dedication)",
     "registrationValue": "Pengmas",
-    "aliases": ["pengmas"],
+    "aliases": [
+      "pengmas"
+    ],
     "borderColor": "rgba(39, 174, 96, 0.3)",
     "roleColor": "#27ae60"
   }
