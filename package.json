@@ -19,9 +19,12 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
+    "@astrojs/vercel": "^11.0.3",
     "@fontsource/inter": "^5.1.0",
     "@fontsource/montserrat": "^5.1.0",
     "@fontsource/poppins": "^5.1.0",
+    "@keystatic/astro": "^5.0.0",
+    "@keystatic/core": "^0.5.2",
     "typescript": "^6.0.3"
   }
 }

@@ -1,14 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import aboutData from '../data/about.json';
 ---
 
-<Layout title="About Us - EIM Research Lab">
+<Layout title={`${aboutData.title} - EIM Research Lab`}>
   <section class="page-header">
     <div class="container">
       <div class="page-header-content">
         <div class="hero-tag"><span></span> About Us</div>
         <h1>About <span class="text-gradient-red">EIM</span> Research Lab</h1>
-        <p class="hero-desc">Getting closer to the Enterprise Infrastructure Management research laboratory at Telkom University.</p>
+        <p class="hero-desc">{aboutData.description}</p>
       </div>
     </div>
   </section>
@@ -17,16 +18,16 @@ import Layout from '../layouts/Layout.astro';
     <div class="container">
       <div class="about-overview-grid" style="margin-bottom: 80px;">
         <div class="about-content">
-          <h2 style="font-size: 2rem; margin-bottom: 20px;">Enterprise Infrastructure Management Laboratory</h2>
+          <h2 style="font-size: 2rem; margin-bottom: 20px;">{aboutData.overviewTitle}</h2>
           <p class="hero-desc" style="margin-bottom: 20px; max-width: 100%;">
-            EIM (Enterprise Infrastructure Management) is a research laboratory under the S1 Information Systems Study Program, Enterprise and Industrial System Expertise Group, Faculty of Industrial Engineering, Telkom University.
+            {aboutData.overviewContent1}
           </p>
           <p style="color: var(--text-secondary); margin-bottom: 20px;">
-            We focus on understanding and developing digital infrastructure such as computer networks, operating systems, cloud computing, and cybersecurity. We conduct research, in-depth studies, and large-scale technology training to prepare future digital talents.
+            {aboutData.overviewContent2}
           </p>
         </div>
         <div class="about-image" style="display: flex; align-items: center; justify-content: center;">
-          <img src="/image/eim/EIM.avif" alt="EIM Lab" />
+          <img src={aboutData.overviewImage} alt="EIM Lab" />
         </div>
       </div>
 
@@ -37,7 +38,7 @@ import Layout from '../layouts/Layout.astro';
               <i class="fa-solid fa-eye"></i> Vision
             </h3>
             <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.6;">
-              To establish the Enterprise Infrastructure Management (EIM) Research Laboratory as a hub for optimal assistant potential development, creating a leading, collaborative, and competitive research laboratory capable of producing innovative and professional human resources ready to contribute academically and industrially.
+              {aboutData.vision}
             </p>
           </div>
           <div>
@@ -45,11 +46,9 @@ import Layout from '../layouts/Layout.astro';
               <i class="fa-solid fa-bullseye"></i> Mission
             </h3>
             <ul style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; padding-left: 20px;">
-              <li style="margin-bottom: 8px;">Strengthening faith and devotion as a moral foundation in every activity of the EIM Research Laboratory.</li>
-              <li style="margin-bottom: 8px;">Fostering smart, professional, and responsible assistants in academics, research, and community service.</li>
-              <li style="margin-bottom: 8px;">Creating a conducive and productive laboratory environment by upholding EIM Work values.</li>
-              <li style="margin-bottom: 8px;">Developing sustainable work programs through innovation and quality improvement.</li>
-              <li style="margin-bottom: 8px;">Strengthening communication and collaboration with all stakeholders.</li>
+              {aboutData.missions.map((mission) => (
+                <li style="margin-bottom: 8px;">{mission}</li>
+              ))}
             </ul>
           </div>
         </div>

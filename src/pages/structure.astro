@@ -1,8 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import initialMembers from '../data/members.json';
+import membersData from '../data/members.json';
 import divisions from '../data/divisions.json';
 
+const initialMembers = membersData.list || [];
 const divisionMap = new Map(divisions.map(d => [d.id, d]));
 ---
 
