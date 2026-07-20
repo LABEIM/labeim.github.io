@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
@@ -49,7 +50,7 @@ const { Content } = await render(item);
           {/* Cover Image */}
           {images.length > 0 && (
             <div style="border-radius: 16px; overflow: hidden; width: 100%; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-              <img src={images[0]} alt={item.data.title} style="width: 100%; maxHeight: 500px; object-fit: cover; display: block;" />
+              <Image src={images[0]} alt={item.data.title} width={800} height={450} style="width: 100%; maxHeight: 500px; object-fit: cover; display: block;" />
             </div>
           )}
 
