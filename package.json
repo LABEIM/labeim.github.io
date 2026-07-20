@@ -19,6 +19,9 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
+    "@fontsource/inter": "^5.1.0",
+    "@fontsource/montserrat": "^5.1.0",
+    "@fontsource/poppins": "^5.1.0",
     "typescript": "^6.0.3"
   }
 }
