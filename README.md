@@ -1,6 +1,6 @@
 # EIM Research Lab Website
 
-Official website of the Enterprise Infrastructure Management (EIM) Research Lab, Faculty of Industrial Engineering, Telkom University. This project is built using **Astro v7** as the Static Site Generator (SSG) and **Tailwind CSS v4** for styling.
+Official website of the Enterprise Infrastructure Management (EIM) Research Lab, Faculty of Industrial Engineering, Telkom University.
 
 ## Key Technologies
 
