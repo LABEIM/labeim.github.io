@@ -87,3 +87,23 @@ In your Vercel project dashboard, go to **Settings** -> **Environment Variables*
 | `KEYSTATIC_SECRET` | `any_long_random_string` | A secret key used to sign the Keystatic session cookie |
 
 Deploy/Redeploy the project. Administrators can now access the CMS at `https://your-site.vercel.app/keystatic` and log in via GitHub to manage the site!
+
+---
+
+### 4. CI/CD Workflow with GitHub Actions
+
+A custom GitHub Actions pipeline is configured in this repository to automate and gatekeeper deployments to Vercel. 
+
+#### Setup Repository Secrets
+
+To enable the deployment workflow, add the following secrets under **Settings > Secrets and variables > Actions > New repository secret** in your GitHub repository:
+
+1. `VERCEL_TOKEN`: Your Vercel Personal Access Token (created at [Vercel Settings > Tokens](https://vercel.com/account/tokens)).
+2. `VERCEL_ORG_ID`: Your Vercel Organization ID (found as `orgId` in `.vercel/project.json` or by running `npx vercel link`).
+3. `VERCEL_PROJECT_ID`: Your Vercel Project ID (found as `projectId` in `.vercel/project.json` or by running `npx vercel link`).
+4. `PUBLIC_GOOGLE_SHEET_SCRIPT_URL`: The URL of your Google Apps Script handler (to inject it during build time).
+
+#### Features of the CI/CD Pipeline
+- **Automation**: Triggers on push or pull requests targeting the `main` branch.
+- **Fail-Safe Checks**: Dependencies are installed and validated before running builds. If tests or formatting checks are added later, they will run and block deployment if they fail.
+- **Preview Comments**: On Pull Requests, the workflow automatically deploys a preview and uses the GitHub CLI to write a comment on the PR containing the exact preview URL. This allows anyone with repository access to check changes without requiring Vercel Dashboard permission.
