@@ -1,6 +1,7 @@
 /* Central entrance stylesheet importing modularized subfiles */
 @import "./variables.css";
 @import "./base.css";
+@import "./icons.css";
 @import "./components/navbar.css";
 @import "./components/footer.css";
 @import "./components/modal.css";

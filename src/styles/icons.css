@@ -1,0 +1,120 @@
+/* --- FONT AWESOME DISPLAY OVERRIDES --- */
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-regular-400.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: 'Font Awesome 6 Brands';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2") format("woff2");
+}
+
+/* Custom Lightweight FontAwesome Subsetting */
+.fa,
+.fas,
+.fa-solid,
+.far,
+.fa-regular,
+.fab,
+.fa-brands {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-rendering: auto;
+}
+
+.fa-solid,
+.fas {
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+}
+
+.fa-regular,
+.far {
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 400;
+}
+
+.fa-brands,
+.fab {
+  font-family: 'Font Awesome 6 Brands';
+  font-weight: 400;
+}
+
+/* Animations */
+.fa-spin {
+  animation: fa-spin 2s infinite linear;
+}
+@keyframes fa-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Sizing Utilities */
+.fa-3x {
+  font-size: 3em;
+}
+
+/* Icon unicode mappings */
+.fa-user::before { content: "\f007"; }
+.fa-clock-rotate-left::before { content: "\f1da"; }
+.fa-paper-plane::before { content: "\f1d8"; }
+.fa-circle-notch::before { content: "\f1ce"; }
+.fa-user-plus::before { content: "\f234"; }
+.fa-users::before { content: "\f0c0"; }
+.fa-server::before { content: "\f233"; }
+.fa-cloud::before { content: "\f0c2"; }
+.fa-shield-halved::before { content: "\f3ed"; }
+.fa-network-wired::before { content: "\f6ff"; }
+.fa-microchip::before { content: "\f2db"; }
+.fa-cloud-arrow-up::before { content: "\f0ee"; }
+.fa-robot::before { content: "\f544"; }
+.fa-newspaper::before { content: "\f1ea"; }
+.fa-calendar::before { content: "\f133"; }
+.fa-arrow-right::before { content: "\f061"; }
+.fa-eye::before { content: "\f06e"; }
+.fa-bullseye::before { content: "\f140"; }
+.fa-handshake::before { content: "\f2b5"; }
+.fa-award::before { content: "\f559"; }
+.fa-people-arrows::before { content: "\e068"; }
+.fa-circle-check::before { content: "\f058"; }
+.fa-arrow-left::before { content: "\f060"; }
+.fa-share-nodes::before { content: "\f1e0"; }
+.fa-circle-info::before { content: "\f05a"; }
+.fa-gift::before { content: "\f06b"; }
+.fa-image::before { content: "\f03e"; }
+.fa-spinner::before { content: "\f110"; }
+.fa-clock::before { content: "\f017"; }
+.fa-tag::before { content: "\f02b"; }
+.fa-building::before { content: "\f1ad"; }
+.fa-calendar-days::before { content: "\f073"; }
+.fa-pen-nib::before { content: "\f5ad"; }
+.fa-location-dot::before { content: "\f3c5"; }
+.fa-university::before { content: "\f19c"; }
+.fa-envelope::before { content: "\f0e0"; }
+.fa-instagram::before { content: "\f16d"; }
+.fa-heart::before { content: "\f004"; }
+.fa-folder-open::before { content: "\f07c"; }
+.fa-graduation-cap::before { content: "\f19d"; }
+.fa-building-columns::before { content: "\f19c"; }
