@@ -62,8 +62,10 @@ const isActive = (href: string) => {
     }
   };
   
-  // Initial check
-  handleScroll();
+  // Initial check wrapped in requestAnimationFrame to avoid forced reflows during page parsing
+  requestAnimationFrame(() => {
+    handleScroll();
+  });
   window.addEventListener('scroll', handleScroll);
 
   // Handle mobile menu toggle
