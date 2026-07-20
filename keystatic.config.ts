@@ -24,12 +24,9 @@ export default config({
           label: 'Images',
           itemLabel: props => props.value,
         }),
-        content: fields.document({
+        content: fields.markdoc({
           label: 'Content',
-          formatting: true,
-          dividers: true,
-          links: true,
-          images: true,
+          extension: 'md',
         }),
       },
     }),
@@ -51,12 +48,9 @@ export default config({
           defaultValue: 'upcoming',
         }),
         event_date: fields.date({ label: 'Event Date' }),
-        description: fields.document({
+        description: fields.markdoc({
           label: 'Description/Content',
-          formatting: true,
-          dividers: true,
-          links: true,
-          images: true,
+          extension: 'md',
         }),
         link: fields.text({ label: 'Link (Optional)' }),
         image: fields.array(fields.text({ label: 'Image URL' }), {
