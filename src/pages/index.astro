@@ -2,13 +2,16 @@
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import divisions from '../data/divisions.json';
-
+import registrationConfig from '../data/registration.json';
 
 // Fetch and sort news
 const allNews = await getCollection('news');
 const latestNews = allNews
   .sort((a, b) => new Date(b.data.news_date).getTime() - new Date(a.data.news_date).getTime())
   .slice(0, 3);
+
+// Check if registration is open
+const isRegistrationOpen = new Date().getTime() < new Date(registrationConfig.deadline).getTime();
 ---
 
 <Layout title="EIM Research Lab - Enterprise Infrastructure Management">
@@ -26,9 +29,11 @@ const latestNews = allNews
             We conduct research, in-depth studies, and training in enterprise network technology, data center optimization, cloud computing, and infrastructure automation.
           </p>
           <div class="hero-actions">
-            <a href="/registration" class="btn btn-primary" style="box-shadow: var(--glow-cyan-intense); transform: scale(1.05);">
-              Register as Assistant Now <i class="fa-solid fa-user-plus"></i>
-            </a>
+            {isRegistrationOpen && (
+              <a href="/registration" class="btn btn-primary" style="box-shadow: var(--glow-cyan-intense); transform: scale(1.05);">
+                Register as Assistant Now <i class="fa-solid fa-user-plus"></i>
+              </a>
+            )}
             <a href="/structure" class="btn btn-secondary">
               View Assistant Structure <i class="fa-solid fa-users"></i>
             </a>
