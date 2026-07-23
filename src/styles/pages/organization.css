@@ -138,12 +138,23 @@
 .member-card.div-media { border-color: rgba(163, 7, 186, 0.3); }
 .member-card.div-community { border-color: rgba(39, 174, 96, 0.3); }
 
-/* Division Brief Grid (Homepage) */
 .divisions-brief-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     margin-top: 30px;
+}
+
+@media (max-width: 992px) {
+    .divisions-brief-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .divisions-brief-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .div-brief-card {
