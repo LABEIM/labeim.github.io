@@ -1,6 +1,23 @@
 {
-  "deadline": "2026-08-17T23:59:59",
+  "deadline": "2026-07-22T23:59:59",
   "title": "Assistant Registration Form",
   "subtitle": "Complete the form below with valid and correct information.",
-  "closedMessage": "Sorry, the assistant registration form is currently closed."
+  "closedMessage": "Sorry, the assistant registration form is currently closed.",
+  "heroTag": "Assistant Recruitment",
+  "heroTitle": "Assistant Lab Registration",
+  "heroDescription": "Join us and become a part of EIM Research Lab. Develop your potential in IT infrastructure, networks, and technology research.",
+  "studentYears": [
+    "2022",
+    "2023",
+    "2024",
+    "2025"
+  ],
+  "medhumDivisionValue": "Medhum",
+  "documentLimits": {
+    "ksmMb": 2,
+    "khsMb": 2,
+    "mlMb": 2,
+    "cvMb": 3,
+    "piMb": 2
+  }
 }

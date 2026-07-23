@@ -123,5 +123,24 @@ export default config({
         }),
       },
     }),
+    registration: singleton({
+      label: 'Registration Form Settings',
+      path: 'src/data/registration',
+      format: { data: 'json' },
+      schema: {
+        title: fields.text({ label: 'Form Section Title', defaultValue: 'Assistant Registration Form' }),
+        subtitle: fields.text({ label: 'Form Section Subtitle', defaultValue: 'Complete the form below with valid and correct information.' }),
+        heroTag: fields.text({ label: 'Hero Tag', defaultValue: 'Assistant Recruitment' }),
+        heroTitle: fields.text({ label: 'Hero Title', defaultValue: 'Assistant Lab Registration' }),
+        heroDescription: fields.text({ label: 'Hero Description', defaultValue: 'Join us and become a part of EIM Research Lab. Develop your potential in IT infrastructure, networks, and technology research.' }),
+        deadline: fields.text({ label: 'Deadline Date (ISO format: YYYY-MM-DDTHH:mm:ss)', defaultValue: '2026-08-17T23:59:59' }),
+        closedMessage: fields.text({ label: 'Closed Form Message', defaultValue: 'Sorry, the assistant registration form is currently closed.' }),
+        studentYears: fields.array(fields.text({ label: 'Year' }), {
+          label: 'Eligible Student Years',
+          itemLabel: props => props.value,
+        }),
+        medhumDivisionValue: fields.text({ label: 'MedHum Division Trigger Value', defaultValue: 'Medhum' }),
+      },
+    }),
   },
 });

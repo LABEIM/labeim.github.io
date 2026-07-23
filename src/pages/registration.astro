@@ -2,22 +2,37 @@
 import Layout from '../layouts/Layout.astro';
 import registrationConfig from '../data/registration.json';
 import divisions from '../data/divisions.json';
+
+const studentYears = registrationConfig.studentYears || ["2022", "2023", "2024", "2025"];
+const docLimits = registrationConfig.documentLimits || {
+  ksmMb: 2,
+  khsMb: 2,
+  mlMb: 2,
+  cvMb: 3,
+  piMb: 2
+};
 ---
 
-<Layout title="Assistant Lab Registration - EIM Research Lab">
+<Layout title={`${registrationConfig.heroTitle || 'Assistant Lab Registration'} - EIM Research Lab`}>
   <section class="page-header" style="padding-top: 150px; padding-bottom: 50px;">
     <div class="container">
       <div class="page-header-content">
-        <div class="hero-tag"><span></span> Assistant Recruitment</div>
-        <h1>Assistant <span class="text-gradient-cyan">Lab Registration</span></h1>
-        <p class="hero-desc">Join us and become a part of EIM Research Lab. Develop your potential in IT infrastructure, networks, and technology research.</p>
+        <div class="hero-tag"><span></span> {registrationConfig.heroTag || 'Assistant Recruitment'}</div>
+        <h1>{registrationConfig.heroTitle || 'Assistant Lab Registration'}</h1>
+        <p class="hero-desc">{registrationConfig.heroDescription || 'Join us and become a part of EIM Research Lab.'}</p>
       </div>
     </div>
   </section>
 
   <section class="section-padding" id="registration">
     <div class="container">
-      <div class="registration-form-container glass-panel" id="registration-container" data-deadline={registrationConfig.deadline} style="max-width: 850px; margin: 0 auto; border-top: 3px solid var(--accent-cyan);">
+      <div 
+        class="registration-form-container glass-panel" 
+        id="registration-container" 
+        data-deadline={registrationConfig.deadline} 
+        data-medhum-val={registrationConfig.medhumDivisionValue || "Medhum"}
+        style="max-width: 850px; margin: 0 auto; border-top: 3px solid var(--accent-cyan);"
+      >
         <div class="registration-header" style="text-align: center; margin-bottom: 30px;">
           <h2 style="font-size: 2rem; margin-bottom: 10px;">{registrationConfig.title}</h2>
           <p style="color: var(--text-secondary);">{registrationConfig.subtitle}</p>
@@ -75,10 +90,9 @@ import divisions from '../data/divisions.json';
               <label for="angkatan">Student Year (Angkatan) <span style="color: var(--accent-red);">*</span></label>
               <select class="form-control" id="angkatan" required>
                 <option value="" disabled selected>Select Year</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
+                {studentYears.map(yr => (
+                  <option value={yr}>{yr}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -130,7 +144,7 @@ import divisions from '../data/divisions.json';
             <textarea class="form-control" id="alasan_divisi_2" rows="3" placeholder="Explain your motivation and skill background for Division 2..." required></textarea>
           </div>
 
-          {/* Dynamic Portfolio MedHum Link (Shows if Medhum is chosen in Division 1 or Division 2) */}
+          {/* Dynamic Portfolio MedHum Link */}
           <div class="form-group" id="container-medhum-porto" style="display: none; margin-top: 15px; background: rgba(163, 7, 186, 0.08); padding: 15px; border-radius: 8px; border: 1px solid rgba(163, 7, 186, 0.3);">
             <label for="portofolio_medhum" style="color: #e879f9; font-weight: bold;">
               <i class="fa-solid fa-palette" style="margin-right: 6px;"></i> MedHum Portfolio Link <span style="color: var(--accent-red);">*</span>
@@ -155,28 +169,28 @@ import divisions from '../data/divisions.json';
 
           <div class="form-row">
             <div class="form-group">
-              <label for="file_ksm">Kartu Studi Mahasiswa (KSM) <span style="font-size: 0.8rem; color: var(--text-secondary);">(Max 2MB)</span> <span style="color: var(--accent-red);">*</span></label>
+              <label for="file_ksm">Kartu Studi Mahasiswa (KSM) <span style="font-size: 0.8rem; color: var(--text-secondary);">(Max {docLimits.ksmMb}MB)</span> <span style="color: var(--accent-red);">*</span></label>
               <input type="file" class="form-control" id="file_ksm" accept=".pdf,.png,.jpg,.jpeg" required />
             </div>
             <div class="form-group">
-              <label for="file_khs">Kartu Hasil Studi (KHS) <span style="font-size: 0.8rem; color: var(--text-secondary);">(Max 2MB)</span> <span style="color: var(--accent-red);">*</span></label>
+              <label for="file_khs">Kartu Hasil Studi (KHS) <span style="font-size: 0.8rem; color: var(--text-secondary);">(Max {docLimits.khsMb}MB)</span> <span style="color: var(--accent-red);">*</span></label>
               <input type="file" class="form-control" id="file_khs" accept=".pdf,.png,.jpg,.jpeg" required />
             </div>
           </div>
 
           <div class="form-row" style="margin-top: 15px;">
             <div class="form-group">
-              <label for="file_ml">Motivation Letter (ML) <span style="font-size: 0.8rem; color: var(--text-secondary);">(Max 2MB)</span> <span style="color: var(--accent-red);">*</span></label>
+              <label for="file_ml">Motivation Letter (ML) <span style="font-size: 0.8rem; color: var(--text-secondary);">(Max {docLimits.mlMb}MB)</span> <span style="color: var(--accent-red);">*</span></label>
               <input type="file" class="form-control" id="file_ml" accept=".pdf,.png,.jpg,.jpeg" required />
             </div>
             <div class="form-group">
-              <label for="file_cv">Curriculum Vitae (CV) <span style="font-size: 0.8rem; color: var(--text-secondary);">(Max 3MB)</span> <span style="color: var(--accent-red);">*</span></label>
+              <label for="file_cv">Curriculum Vitae (CV) <span style="font-size: 0.8rem; color: var(--text-secondary);">(Max {docLimits.cvMb}MB)</span> <span style="color: var(--accent-red);">*</span></label>
               <input type="file" class="form-control" id="file_cv" accept=".pdf,.png,.jpg,.jpeg" required />
             </div>
           </div>
 
           <div class="form-group" style="margin-top: 15px;">
-            <label for="file_pi">Pakta Integritas (PI) <span style="font-size: 0.8rem; color: var(--text-secondary);">(Max 2MB)</span> <span style="color: var(--accent-red);">*</span></label>
+            <label for="file_pi">Pakta Integritas (PI) <span style="font-size: 0.8rem; color: var(--text-secondary);">(Max {docLimits.piMb}MB)</span> <span style="color: var(--accent-red);">*</span></label>
             <input type="file" class="form-control" id="file_pi" accept=".pdf,.png,.jpg,.jpeg" required />
             <small style="color: var(--text-secondary); display: block; margin-top: 5px;">Upload signed Integrity Pact document.</small>
           </div>
@@ -193,9 +207,9 @@ import divisions from '../data/divisions.json';
 </Layout>
 
 <script>
-  // Registration deadline setup
   const container = document.getElementById('registration-container');
   const deadlineStr = container?.getAttribute('data-deadline') || "2026-08-17T23:59:59";
+  const medhumTriggerVal = container?.getAttribute('data-medhum-val') || "Medhum";
   const DEADLINE = new Date(deadlineStr).getTime();
   
   const timerContainer = document.getElementById('registration-timer');
@@ -221,7 +235,7 @@ import divisions from '../data/divisions.json';
   const toggleMedhumPorto = () => {
     const val1 = div1Select?.value || '';
     const val2 = div2Select?.value || '';
-    if (val1 === 'Medhum' || val2 === 'Medhum') {
+    if (val1 === medhumTriggerVal || val2 === medhumTriggerVal) {
       medhumPortoContainer.style.display = 'block';
       medhumPortoInput.required = true;
     } else {
@@ -265,7 +279,6 @@ import divisions from '../data/divisions.json';
         return;
       }
       
-      // Limit file size based on document type
       if (file.size > maxMb * 1024 * 1024) {
         reject(new Error(`${documentLabel} (${file.name}) exceeds the ${maxMb}MB size limit.`));
         return;
@@ -308,7 +321,7 @@ import divisions from '../data/divisions.json';
       return;
     }
 
-    if ((divisi_1 === 'Medhum' || divisi_2 === 'Medhum') && !portofolio_medhum) {
+    if ((divisi_1 === medhumTriggerVal || divisi_2 === medhumTriggerVal) && !portofolio_medhum) {
       alertError.innerText = 'Please provide your MedHum portfolio URL link!';
       alertError.style.display = 'block';
       return;
@@ -320,7 +333,6 @@ import divisions from '../data/divisions.json';
     }
 
     try {
-      // Encode files to base64
       const fileKsmInput = document.getElementById('file_ksm') as HTMLInputElement;
       const fileKhsInput = document.getElementById('file_khs') as HTMLInputElement;
       const fileMlInput = document.getElementById('file_ml') as HTMLInputElement;
