@@ -26,7 +26,7 @@
     "@fontsource/poppins": "^5.1.0",
     "@keystatic/astro": "^5.0.0",
     "@keystatic/core": "^0.5.2",
-    "react": "^19.0.0",
+    "react": "^19.2.8",
     "react-dom": "^19.0.0",
     "typescript": "^6.0.3"
   }
